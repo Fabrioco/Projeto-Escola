@@ -1,14 +1,12 @@
-import Express, { Request, Response } from "express";
 
-const routerAuth = Express.Router();
+import express, { Request, Response } from "express";
+import studentController from "../controllers/studentController";
 
-routerAuth.post('/login', async(req:Request, res:Response) => {
-    try {
-        const {email, password} = req.body
-        
-    } catch (error) {
-        
-    }
-})
+const routerAuth = express.Router();
 
-module.exports = routerAuth
+// Rota de login
+routerAuth.post("/login", (req: Request, res: Response) => {
+  studentController.login(req, res);
+});
+
+export default routerAuth;
