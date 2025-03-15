@@ -3,7 +3,7 @@ import AuthServices from "../services/authServices";
 
 class StudentController {
   async login(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
+    const { email, password, keepLogged } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
@@ -13,7 +13,7 @@ class StudentController {
 
     try {
       // Chama o serviço de autenticação
-      const student = await AuthServices.signInStudents(email, password);
+      const student = await AuthServices.signInStudents(email, password, keepLogged);
 
       // Retorna a resposta
       return res.status(200).json(student);

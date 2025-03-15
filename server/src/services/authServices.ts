@@ -3,7 +3,11 @@ import { hashedPassword } from "../utils/passwordUtils";
 import { generateToken } from "../utils/tokenUtils";
 
 class AuthServices {
-  static async signInStudents(email: string, password: string) {
+  static async signInStudents(
+    email: string,
+    password: string,
+    keepLogged: boolean
+  ) {
     // Busca o aluno pelo e-mail
     const student = await Student.findOne({ where: { email } });
     if (!student) {
@@ -14,7 +18,7 @@ class AuthServices {
     hashedPassword(password, student.password);
 
     // Cria o token
-    const token = generateToken(student.id, true);
+    const token = generateToken(student.id, keepLogged);
 
     // Retorna os dados do aluno e o token
     return {
