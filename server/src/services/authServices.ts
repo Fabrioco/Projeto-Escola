@@ -5,7 +5,9 @@ import { AuthConfig } from "../config/authConfig";
 
 async function hashedPassword(password: string, userPassword: string) {
   const hashPassword = await bcrypt.compare(password, userPassword);
-  return !hashPassword && new Error("Senha incorreta");
+  if (!hashPassword) {
+    throw new Error("Senha incorreta");
+  }
 }
 
 function generateToken(userId: number, keepLogged: boolean) {
@@ -41,8 +43,7 @@ class AuthServices {
     };
   }
 
-  static async sigInTeachers(email: string, password: string) {
-  }
+  static async sigInTeachers(email: string, password: string) {}
 }
 
 export default AuthServices;
