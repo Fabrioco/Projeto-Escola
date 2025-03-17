@@ -2,11 +2,13 @@ import bcrypt from "bcrypt";
 import {
   signInStudentsProps,
   SignUpStudentProps,
+  SignUpTeacherProps,
 } from "../interfaces/authInterface";
 import Student from "../models/student";
 import { hashedPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
 import { hashPassword } from "../utils/hashPassword";
+import Teacher from "../models/teacher";
 
 class AuthServices {
   static async signInStudents({
@@ -27,14 +29,10 @@ class AuthServices {
 
     // Retorna os dados do aluno e o token
     return {
-      id: student.id,
-      name: student.name,
-      email: student.email,
+      student,
       token,
     };
   }
-
-  static async sigInTeachers(email: string, password: string) {}
 
   static async signUpStudent({
     name,
@@ -58,6 +56,24 @@ class AuthServices {
       period,
     });
     return student;
+  }
+
+  static async sigInTeachers(email: string, password: string) {}
+
+  static async signUpTeachers({ name, email, password }: SignUpTeacherProps) {
+    const verifyEmail = await Teacher.findOne({ where: { email } });
+    if (verifyEmail) {
+      throw new Error("Email já cadastrado!");
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const teacher = await Teacher.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+    return teacher;
   }
 }
 
