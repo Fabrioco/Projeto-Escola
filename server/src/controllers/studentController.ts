@@ -13,7 +13,15 @@ class StudentController {
 
     try {
       // Chama o serviço de autenticação
+<<<<<<< Updated upstream
       const student = await AuthServices.signInStudents(email, password);
+=======
+      const student = await AuthServices.signInStudents({
+        email,
+        password,
+        keepLogged,
+      });
+>>>>>>> Stashed changes
 
       // Retorna a resposta
       return res.status(200).json(student);
@@ -23,6 +31,29 @@ class StudentController {
         // Se tem o type Error, vai retornar o erro especifico, senão "Erro desconhecido"
         error: error instanceof Error ? error.message : "Erro desconhecido",
       });
+    }
+  }
+
+  async createStudent(req: Request, res: Response): Promise<Response> {
+    const { name, email, password, class_id, period } = req.body;
+    if (!name || !email || !password || !class_id || !period) {
+      return res.status(500).json({ error: "Preencha todos os campos" });
+    }
+    try {
+      const student = await AuthServices.signUpStudent({
+        name,
+        email,
+        password,
+        class_id,
+        period,
+      });
+      return res.status(201).json(student);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        });
     }
   }
 }

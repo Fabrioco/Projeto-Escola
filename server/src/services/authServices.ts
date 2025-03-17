@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+<<<<<<< Updated upstream
 import jwt from "jsonwebtoken";
 import Student from "../models/student";
 import { AuthConfig } from "../config/authConfig";
@@ -21,6 +22,22 @@ function generateToken(userId: number, keepLogged: boolean) {
 
 class AuthServices {
   static async signInStudents(email: string, password: string) {
+=======
+import {
+  signInStudentsProps,
+  SignUpStudentProps,
+} from "../interfaces/authInterface";
+import Student from "../models/student";
+import { hashedPassword } from "../utils/verifyPasswordUtils";
+import { generateToken } from "../utils/tokenUtils";
+
+class AuthServices {
+  static async signInStudents({
+    email,
+    password,
+    keepLogged,
+  }: signInStudentsProps) {
+>>>>>>> Stashed changes
     // Busca o aluno pelo e-mail
     const student = await Student.findOne({ where: { email } });
     if (!student) {
@@ -41,7 +58,33 @@ class AuthServices {
     };
   }
 
+<<<<<<< Updated upstream
   static async sigInTeachers(email: string, password: string) {
+=======
+  static async sigInTeachers(email: string, password: string) {}
+  static async signUpStudent({
+    name,
+    email,
+    password,
+    class_id,
+    period,
+  }: SignUpStudentProps) {
+    const verifyEmail = await Student.findOne({ where: { email } });
+    if (verifyEmail) {
+      throw new Error("Esse email já está cadastrado!");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const student = await Student.create({
+      name,
+      email,
+      password: hashedPassword,
+      class_id,
+      period,
+    });
+    return student;
+>>>>>>> Stashed changes
   }
 }
 
