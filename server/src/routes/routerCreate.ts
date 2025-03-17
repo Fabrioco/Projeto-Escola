@@ -1,5 +1,6 @@
 import Express, { Request, Response } from "express";
 import studentController from "../controllers/studentController";
+import teacherController from "../controllers/teacherController";
 
 const routerCreate = Express.Router();
 
@@ -8,8 +9,8 @@ routerCreate.post("/student", (req: Request, res: Response) => {
   studentController.createStudent(req, res);
 });
 
-routerCreate.post("/teacher", (req:Request, res: Response) =>{
-    
-})
+routerCreate.post("/teacher", (req: Request, res: Response) => {
+  teacherController.createTeacher(req, res);
+});
 
 export default routerCreate;
