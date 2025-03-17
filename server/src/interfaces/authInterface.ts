@@ -23,3 +23,15 @@ export interface SignInTeacherProps {
   password: string;
   keepLogged: boolean;
 }
+
+export interface SignInCoordinator {
+  email: string;
+  password: string;
+  keepLogged: boolean;
+}
+
+export interface SignUpCoordinatorProps {
+  name: string;
+  email: string;
+  password: string;
+}
