@@ -13,15 +13,11 @@ class StudentController {
 
     try {
       // Chama o serviço de autenticação
-<<<<<<< Updated upstream
-      const student = await AuthServices.signInStudents(email, password);
-=======
       const student = await AuthServices.signInStudents({
         email,
         password,
         keepLogged,
       });
->>>>>>> Stashed changes
 
       // Retorna a resposta
       return res.status(200).json(student);

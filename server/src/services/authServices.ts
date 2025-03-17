@@ -1,28 +1,4 @@
 import bcrypt from "bcrypt";
-<<<<<<< Updated upstream
-import jwt from "jsonwebtoken";
-import Student from "../models/student";
-import { AuthConfig } from "../config/authConfig";
-
-async function hashedPassword(password: string, userPassword: string) {
-  const hashPassword = await bcrypt.compare(password, userPassword);
-  return !hashPassword && new Error("Senha incorreta");
-}
-
-function generateToken(userId: number, keepLogged: boolean) {
-  if (!keepLogged) {
-    const token = jwt.sign({ id: userId }, AuthConfig.secret, {
-      expiresIn: "1d",
-    });
-    return token;
-  }
-  const token = jwt.sign({ id: userId }, AuthConfig.secret);
-  return token;
-}
-
-class AuthServices {
-  static async signInStudents(email: string, password: string) {
-=======
 import {
   signInStudentsProps,
   SignUpStudentProps,
@@ -37,7 +13,6 @@ class AuthServices {
     password,
     keepLogged,
   }: signInStudentsProps) {
->>>>>>> Stashed changes
     // Busca o aluno pelo e-mail
     const student = await Student.findOne({ where: { email } });
     if (!student) {
@@ -58,9 +33,7 @@ class AuthServices {
     };
   }
 
-<<<<<<< Updated upstream
-  static async sigInTeachers(email: string, password: string) {
-=======
+
   static async sigInTeachers(email: string, password: string) {}
   static async signUpStudent({
     name,
@@ -84,7 +57,6 @@ class AuthServices {
       period,
     });
     return student;
->>>>>>> Stashed changes
   }
 }
 
