@@ -35,3 +35,5 @@ Teacher.init(
     timestamps: false,
   }
 );
+
+export default Teacher;
