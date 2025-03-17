@@ -3,7 +3,7 @@ import AuthServices from "../services/authServices";
 
 class StudentController {
   async login(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
+    const { email, password, keepLogged } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
@@ -45,11 +45,9 @@ class StudentController {
       });
       return res.status(201).json(student);
     } catch (error) {
-      return res
-        .status(500)
-        .json({
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        });
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
     }
   }
 }

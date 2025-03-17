@@ -6,6 +6,7 @@ import {
 import Student from "../models/student";
 import { hashedPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
+import { hashPassword } from "../utils/hashPassword";
 
 class AuthServices {
   static async signInStudents({
@@ -33,8 +34,8 @@ class AuthServices {
     };
   }
 
-
   static async sigInTeachers(email: string, password: string) {}
+
   static async signUpStudent({
     name,
     email,
@@ -47,7 +48,7 @@ class AuthServices {
       throw new Error("Esse email já está cadastrado!");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = hashPassword(password);
 
     const student = await Student.create({
       name,
