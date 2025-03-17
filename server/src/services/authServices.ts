@@ -1,7 +1,9 @@
 import bcrypt from "bcrypt";
 import {
+  SignInCoordinator,
   signInStudentsProps,
   SignInTeacherProps,
+  SignUpCoordinatorProps,
   SignUpStudentProps,
   SignUpTeacherProps,
 } from "../interfaces/authInterface";
@@ -10,6 +12,7 @@ import { verifyPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
 import { hashPassword } from "../utils/hashPassword";
 import Teacher from "../models/teacher";
+import Coordinator from "../models/coordinator";
 
 class AuthServices {
   static async signInStudents({
@@ -90,6 +93,32 @@ class AuthServices {
       password: hashedPassword,
     });
     return teacher;
+  }
+
+  static async signInCoordinator({
+    email,
+    password,
+    keepLogged,
+  }: SignInCoordinator) {}
+
+  static async signUpCoordinator({
+    name,
+    email,
+    password,
+  }: SignUpCoordinatorProps) {
+    const verifyEmail = await Coordinator.findOne({ where: { email } });
+    if (verifyEmail) {
+      throw new Error("Email já cadastrado!");
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const coordinator = await Coordinator.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+    return coordinator;
   }
 }
 
