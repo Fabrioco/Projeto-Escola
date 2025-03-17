@@ -2,6 +2,29 @@ import { Request, Response } from "express";
 import AuthServices from "../services/authServices";
 
 class TeacherController {
+  async login(req: Request, res: Response): Promise<Response> {
+    const { email, password, keepLogged } = req.body;
+    if (!email || !password) {
+      res.status(500).json({
+        message: "Preencha todos os campos!",
+      });
+    }
+
+    try {
+      const teacher = await AuthServices.sigInTeachers({
+        email,
+        password,
+        keepLogged,
+      });
+      return res.status(200).json({
+        teacher,
+      });
+    } catch (error) {
+      return res.json(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
   async createTeacher(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
 
