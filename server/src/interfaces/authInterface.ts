@@ -17,3 +17,9 @@ export interface SignUpTeacherProps {
   email: string;
   password: string;
 }
+
+export interface SignInTeacherProps {
+  email: string;
+  password: string;
+  keepLogged: boolean;
+}
