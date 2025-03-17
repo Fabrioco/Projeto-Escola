@@ -34,6 +34,10 @@ Student.init(
     class_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "class",
+        key: "id",
+      },
     },
     period: {
       type: DataTypes.ENUM("Manhã", "Tarde", "Noite"),

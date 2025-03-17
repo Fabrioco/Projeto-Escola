@@ -1,13 +1,18 @@
+import bcrypt from "bcrypt";
+import {
+  signInStudentsProps,
+  SignUpStudentProps,
+} from "../interfaces/authInterface";
 import Student from "../models/student";
-import { hashedPassword } from "../utils/passwordUtils";
+import { hashedPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
 
 class AuthServices {
-  static async signInStudents(
-    email: string,
-    password: string,
-    keepLogged: boolean
-  ) {
+  static async signInStudents({
+    email,
+    password,
+    keepLogged,
+  }: signInStudentsProps) {
     // Busca o aluno pelo e-mail
     const student = await Student.findOne({ where: { email } });
     if (!student) {
@@ -17,8 +22,7 @@ class AuthServices {
     // Verifica a senha
     hashedPassword(password, student.password);
 
-    // Cria o token
-    const token = generateToken(student.id, keepLogged);
+    const token = generateToken(student.id, true);
 
     // Retorna os dados do aluno e o token
     return {
@@ -29,7 +33,31 @@ class AuthServices {
     };
   }
 
+
   static async sigInTeachers(email: string, password: string) {}
+  static async signUpStudent({
+    name,
+    email,
+    password,
+    class_id,
+    period,
+  }: SignUpStudentProps) {
+    const verifyEmail = await Student.findOne({ where: { email } });
+    if (verifyEmail) {
+      throw new Error("Esse email já está cadastrado!");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const student = await Student.create({
+      name,
+      email,
+      password: hashedPassword,
+      class_id,
+      period,
+    });
+    return student;
+  }
 }
 
 export default AuthServices;
