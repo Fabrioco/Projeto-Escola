@@ -99,7 +99,18 @@ class AuthServices {
     email,
     password,
     keepLogged,
-  }: SignInCoordinator) {}
+  }: SignInCoordinator) {
+    const coordinator = await Coordinator.findOne({ where: { email } });
+    if (!coordinator) {
+      throw new Error("Email não encontrado");
+    }
+
+    verifyPassword(password, coordinator.password);
+
+    const token = generateToken(coordinator.id, keepLogged);
+
+    return { coordinator, token };
+  }
 
   static async signUpCoordinator({
     name,
