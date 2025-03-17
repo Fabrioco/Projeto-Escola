@@ -23,7 +23,7 @@ class AuthServices {
     // Verifica a senha
     hashedPassword(password, student.password);
 
-    const token = generateToken(student.id, true);
+    const token = generateToken(student.id, keepLogged);
 
     // Retorna os dados do aluno e o token
     return {

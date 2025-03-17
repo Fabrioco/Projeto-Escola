@@ -8,8 +8,5 @@ routerAuth.post("/login", (req: Request, res: Response) => {
   studentController.login(req, res);
 });
 
-routerAuth.post("/create/student", (req: Request, res: Response) => {
-  studentController.createStudent(req, res);
-});
 
 export default routerAuth;
