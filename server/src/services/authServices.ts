@@ -48,7 +48,7 @@ class AuthServices {
       throw new Error("Esse email já está cadastrado!");
     }
 
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
 
     const student = await Student.create({
       name,
