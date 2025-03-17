@@ -11,3 +11,9 @@ export interface SignUpStudentProps {
   class_id: number;
   period: string;
 }
+
+export interface SignUpTeacherProps {
+  name: string;
+  email: string;
+  password: string;
+}
