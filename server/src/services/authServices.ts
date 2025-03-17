@@ -1,11 +1,12 @@
 import bcrypt from "bcrypt";
 import {
   signInStudentsProps,
+  SignInTeacherProps,
   SignUpStudentProps,
   SignUpTeacherProps,
 } from "../interfaces/authInterface";
 import Student from "../models/student";
-import { hashedPassword } from "../utils/verifyPasswordUtils";
+import { verifyPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
 import { hashPassword } from "../utils/hashPassword";
 import Teacher from "../models/teacher";
@@ -23,7 +24,7 @@ class AuthServices {
     }
 
     // Verifica a senha
-    hashedPassword(password, student.password);
+    verifyPassword(password, student.password);
 
     const token = generateToken(student.id, keepLogged);
 
@@ -58,7 +59,22 @@ class AuthServices {
     return student;
   }
 
-  static async sigInTeachers(email: string, password: string) {}
+  static async sigInTeachers({
+    email,
+    password,
+    keepLogged,
+  }: SignInTeacherProps) {
+    const teacher = await Teacher.findOne({ where: { email } });
+    if (!teacher) {
+      throw new Error("Email não encontrado");
+    }
+
+    verifyPassword(password, teacher.password);
+
+    const token = generateToken(teacher.id, keepLogged);
+
+    return { teacher, token };
+  }
 
   static async signUpTeachers({ name, email, password }: SignUpTeacherProps) {
     const verifyEmail = await Teacher.findOne({ where: { email } });
