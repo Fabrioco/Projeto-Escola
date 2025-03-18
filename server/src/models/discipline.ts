@@ -1,13 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import database from "../config/database";
 
-class Disclipine extends Model {
+class Discipline extends Model {
   declare id: number;
   declare name: string;
   declare grade: number;
 }
 
-Disclipine.init(
+Discipline.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,3 +29,5 @@ Disclipine.init(
     timestamps: false,
   }
 );
+
+export default Discipline;
