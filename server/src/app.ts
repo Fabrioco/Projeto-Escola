@@ -5,6 +5,7 @@ import routerAuth from "./routes/routerAuth";
 import routerCreate from "./routes/routerCreate";
 import routerClass from "./routes/routerClass";
 import routerDiscipline from "./routes/routerDiscipline";
+import routerPresence from "./routes/routerPresence";
 
 configDotenv();
 const app = Express();
@@ -16,6 +17,7 @@ app.use("/api/auth", routerAuth);
 app.use("/api/create", routerCreate);
 app.use("/api/class", routerClass);
 app.use("/api/discipline", routerDiscipline);
+app.use("/api/presence", routerPresence);
 
 database.sync().then(() => {
   app.listen(PORT, () => {
