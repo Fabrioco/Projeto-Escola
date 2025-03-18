@@ -6,6 +6,7 @@ import routerCreate from "./routes/routerCreate";
 import routerClass from "./routes/routerClass";
 import routerDiscipline from "./routes/routerDiscipline";
 import routerPresence from "./routes/routerPresence";
+import routerNote from "./routes/routerNote";
 
 configDotenv();
 const app = Express();
@@ -18,6 +19,7 @@ app.use("/api/create", routerCreate);
 app.use("/api/class", routerClass);
 app.use("/api/discipline", routerDiscipline);
 app.use("/api/presence", routerPresence);
+app.use("/api/note", routerNote);
 
 database.sync().then(() => {
   app.listen(PORT, () => {
