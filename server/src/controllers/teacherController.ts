@@ -25,6 +25,7 @@ class TeacherController {
       });
     }
   }
+  
   async createTeacher(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
 
@@ -42,6 +43,16 @@ class TeacherController {
       return res.status(201).json({
         teacher,
       });
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async logOut(req: Request, res: Response): Promise<Response> {
+    try {
+      return res.status(200).json({ message: "Logout efetuado com sucesso" });
     } catch (error) {
       return res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",
