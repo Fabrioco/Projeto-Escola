@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import studentController from "../controllers/studentController";
 import teacherController from "../controllers/teacherController";
 import coordinatorController from "../controllers/coordinatorController";
+import { studentAuthMiddleware } from "../middlewares/studentAuthentication";
 
 const routerAuth = express.Router();
 

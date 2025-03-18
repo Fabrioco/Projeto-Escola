@@ -1,3 +1,4 @@
+import { StudentProps } from "./../interfaces/usersInterface";
 import { Request, Response } from "express";
 import AuthServices from "../services/authServices";
 
@@ -13,7 +14,7 @@ class StudentController {
 
     try {
       // Chama o serviço de autenticação
-      const student = await AuthServices.signInStudents({
+      const student: StudentProps = await AuthServices.signInStudents({
         email,
         password,
         keepLogged,
