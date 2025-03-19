@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/ui/Header/page";
 import { AuthProvider } from "@/contexts/authContext";
+import { Footer } from "@/ui/Footer/page";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       >
         <Header />
         <AuthProvider>{children}</AuthProvider>
+        <Footer />
       </body>
     </html>
   );
