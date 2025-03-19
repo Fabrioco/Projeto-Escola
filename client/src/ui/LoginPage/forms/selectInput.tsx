@@ -16,6 +16,9 @@ export function SelectInput({ role, setRole }: SelectInputProps) {
         value={role}
         onChange={setRole}
       >
+        <option disabled selected>
+          Selecione
+        </option>
         <option value="student">Estudante</option>
         <option value="teacher">Professor</option>
         <option value="coordinator">Coordenador</option>

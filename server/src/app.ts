@@ -7,11 +7,12 @@ import routerClass from "./routes/routerClass";
 import routerDiscipline from "./routes/routerDiscipline";
 import routerPresence from "./routes/routerPresence";
 import routerNote from "./routes/routerNote";
+const cors = require("cors");
 
 configDotenv();
 const app = Express();
 app.use(Express.json());
-
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", routerAuth);
