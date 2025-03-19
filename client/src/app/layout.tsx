@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`antialiased ${montserrat.className} bg-gray-200 w-screen min-h-screen flex flex-col items-center justify-center`}
+        className={`antialiased ${montserrat.className} bg-gray-200 w-screen min-h-screen flex flex-col items-center justify-between`}
       >
         <Header />
         <AuthProvider>{children}</AuthProvider>
