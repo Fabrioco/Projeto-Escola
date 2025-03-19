@@ -8,7 +8,9 @@ export function EmailInput({ email, setEmail }: EmailInputProps) {
     <div className="w-full flex relative group">
       <label
         htmlFor="email"
-        className="absolute top-3 left-2 group-focus-within:top-0 group-focus-within:text-gray-500 transition-all duration-150 ease-in-out text-base group-focus-within:text-sm cursor-pointer"
+        className={`absolute left-2 group-focus-within:top-0 group-focus-within:text-gray-500 transition-all duration-150 ease-in-out text-base group-focus-within:text-sm cursor-pointer ${
+          email ? "top-0 text-gray-500 text-sm" : "top-3 text-base"
+        }`}
       >
         Email
       </label>
