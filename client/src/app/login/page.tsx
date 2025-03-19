@@ -1,4 +1,4 @@
-import { Eye } from "@phosphor-icons/react";
+import { Eye } from "@phosphor-icons/react/dist/ssr";
 
 export default function LoginPage() {
   return (

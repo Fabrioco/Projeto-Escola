@@ -1,6 +1,6 @@
 import { DataTypes, Model, ModelCtor } from "sequelize";
 import database from "../config/database";
-import Class from "./class";
+import Class from "./classModel";
 
 class Student extends Model {
   declare id: number;

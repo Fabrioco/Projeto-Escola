@@ -6,12 +6,12 @@ import {
   SignUpStudentProps,
   SignUpTeacherProps,
 } from "../interfaces/authInterface";
-import Student from "../models/student";
+import Student from "../models/studentModel";
 import { verifyPassword } from "../utils/verifyPasswordUtils";
 import { generateToken } from "../utils/tokenUtils";
 import { hashPassword } from "../utils/hashPassword";
-import Teacher from "../models/teacher";
-import Coordinator from "../models/coordinator";
+import Teacher from "../models/teacherModel";
+import Coordinator from "../models/coordinatorModel";
 
 class AuthServices {
   static async signInStudents({

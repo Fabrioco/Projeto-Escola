@@ -1,5 +1,5 @@
 import Express from "express";
-import Class from "../models/class";
+import Class from "../models/classModel";
 import classController from "../controllers/classController";
 
 const routerClass = Express.Router();

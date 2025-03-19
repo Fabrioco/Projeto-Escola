@@ -1,5 +1,5 @@
 import { DisciplineProps } from "../interfaces/disciplineInterface";
-import Discipline from "../models/discipline";
+import Discipline from "../models/disciplineModel";
 
 class DisciplineServices {
   static async createDiscipline({ name, grade }: DisciplineProps) {

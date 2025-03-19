@@ -1,5 +1,5 @@
 import { ClassProps } from "../interfaces/classInterface";
-import Class from "../models/class";
+import Class from "../models/classModel";
 
 class ClassServices {
   static async createClass({ name, grade, period }: ClassProps) {

@@ -1,5 +1,5 @@
 import { PresenceProps } from "../interfaces/presenceInterface";
-import Presence from "../models/presence";
+import Presence from "../models/presenceModel";
 
 class PresenceServices {
   static async getPresence(id: number) {

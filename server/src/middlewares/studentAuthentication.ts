@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import Student from "../models/student";
+import Student from "../models/studentModel";
 import { NextFunction, Request, Response } from "express";
 import { AuthConfig } from "../config/authConfig";
 
