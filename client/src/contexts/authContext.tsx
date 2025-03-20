@@ -11,9 +11,21 @@ type SignInProps = {
   role: string;
 };
 
+type UserProps = {
+  name: string;
+  email: string;
+  password: string;
+  class_id?: number;
+  period?: string;
+  admin?: boolean;
+};
+
 type AuthContextType = {
   signIn: ({ email, password, keepLogged, role }: SignInProps) => Promise<void>;
   loading: boolean;
+  logOut: () => void;
+  user: UserProps | null;
+  fetchUser: () => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -27,6 +39,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 }) => {
   const router = useRouter();
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [user, setUser] = React.useState<UserProps | null>(null);
 
   const api = "http://localhost:5000";
 
@@ -63,8 +76,46 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
       setLoading(false);
     }
   };
+
+  React.useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(`${api}/api/auth/verify/coordinator`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setUser(response.data);
+          }
+        })
+        .catch((error) => {
+          if (error instanceof AxiosError && error.response) {
+            console.log("Erro na requisição", {
+              status: error.response.status,
+              data: error.response.data.error,
+              url: error.config?.url,
+            });
+          } else {
+            console.log("Erro desconhecido", error);
+          }
+        });
+    }
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ signIn, loading }}>
+    <AuthContext.Provider value={{ signIn, loading, logOut, user, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );
