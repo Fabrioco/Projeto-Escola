@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import { AuthConfig } from "../config/authConfig";
+import bcrypt from "bcrypt";
 import {
   SignInCoordinator,
   signInStudentsProps,
@@ -7,11 +10,10 @@ import {
   SignUpTeacherProps,
 } from "../interfaces/authInterface";
 import Student from "../models/studentModel";
-import { verifyPassword } from "../utils/verifyPasswordUtils";
-import { generateToken } from "../utils/tokenUtils";
 import { hashPassword } from "../utils/hashPassword";
 import Teacher from "../models/teacherModel";
 import Coordinator from "../models/coordinatorModel";
+import { generateToken } from "../utils/tokenUtils";
 
 class AuthServices {
   static async signInStudents({
@@ -26,8 +28,11 @@ class AuthServices {
     }
 
     // Verifica a senha
-    verifyPassword(password, student.password);
-
+    const isPasswordValid = await bcrypt.compare(password, student.password);
+    if (!isPasswordValid) {
+      throw new Error("Senha incorreta");
+    }
+    
     const token = generateToken(student.id, keepLogged);
 
     // Retorna os dados do aluno e o token
@@ -71,7 +76,10 @@ class AuthServices {
       throw new Error("Email não encontrado");
     }
 
-    verifyPassword(password, teacher.password);
+    const isPasswordValid = await bcrypt.compare(password, teacher.password);
+    if (!isPasswordValid) {
+      throw new Error("Senha incorreta");
+    }
 
     const token = generateToken(teacher.id, keepLogged);
 
@@ -104,9 +112,21 @@ class AuthServices {
       throw new Error("Email não encontrado");
     }
 
-    verifyPassword(password, coordinator.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      coordinator.password
+    );
+    if (!isPasswordValid) {
+      throw new Error("Senha incorreta");
+    }
 
-    const token = generateToken(coordinator.id, keepLogged);
+    if (!keepLogged) {
+      const token = jwt.sign({ id: coordinator.id }, AuthConfig.secret, {
+        expiresIn: "1d",
+      });
+      return token;
+    }
+    const token = jwt.sign({ id: coordinator.id }, AuthConfig.secret);
 
     return { coordinator, token };
   }

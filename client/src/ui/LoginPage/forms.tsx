@@ -13,7 +13,7 @@ export function LoginForm() {
   const [role, setRole] = useState<string>("");
   const [remember, setRemember] = useState<boolean>(false);
 
-  const { signIn } = useAuth();
+  const { signIn, loading } = useAuth();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ export function LoginForm() {
         setRemember={(e) => setRemember(e.target.checked)}
       />
 
-      <Button type="submit">Entrar</Button>
+      <Button type="submit">{loading ? "Entrando..." : "Entrar"}</Button>
     </form>
   );
 }
