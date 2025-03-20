@@ -38,8 +38,9 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
         password,
         keepLogged,
       });
+      console.log(res.data.token.token);
       if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token.token);
         if (role === "student") {
           router.push("/student");
         } else if (role === "teacher") {
