@@ -32,12 +32,11 @@ class AuthServices {
     if (!isPasswordValid) {
       throw new Error("Senha incorreta");
     }
-    
+
     const token = generateToken(student.id, keepLogged);
 
     // Retorna os dados do aluno e o token
     return {
-      student,
       token,
     };
   }
@@ -83,7 +82,7 @@ class AuthServices {
 
     const token = generateToken(teacher.id, keepLogged);
 
-    return { teacher, token };
+    return { token };
   }
 
   static async signUpTeachers({ name, email, password }: SignUpTeacherProps) {
@@ -128,7 +127,7 @@ class AuthServices {
     }
     const token = jwt.sign({ id: coordinator.id }, AuthConfig.secret);
 
-    return { coordinator, token };
+    return { token };
   }
 
   static async signUpCoordinator({
