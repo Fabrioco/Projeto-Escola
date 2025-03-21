@@ -12,6 +12,56 @@ class ScheduleController {
       });
     }
   }
+
+  async getAllSchedules(req: Request, res: Response) {
+    try {
+      const schedules = await ScheduleServices.getAllSchedules();
+      return res.status(200).json(schedules);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async getScheduleById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const schedule = await ScheduleServices.getSchedule(Number(id));
+      return res.status(200).json(schedule);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async deleteSchedule(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await ScheduleServices.deleteSchedule(Number(id));
+      return res.status(200).json({ message: "Horário deletado com sucesso" });
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async updateSchedule(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { time } = req.body;
+      await ScheduleServices.updateSchedule(Number(id), time);
+      return res
+        .status(200)
+        .json({ message: "Horário atualizado com sucesso" });
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
 }
 
 export default new ScheduleController();
