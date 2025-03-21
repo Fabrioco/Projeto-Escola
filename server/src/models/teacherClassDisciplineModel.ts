@@ -40,8 +40,12 @@ TeacherClassDiscipline.init(
       },
     },
     time: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "schedules",
+        key: "id",
+      },
     },
   },
   {
