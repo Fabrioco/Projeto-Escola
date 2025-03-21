@@ -26,6 +26,18 @@ class TeacherClassDisciplineController {
       });
     }
   }
+
+  async getAllTeacherClassDisciplines(req: Request, res: Response) {
+    try {
+      const teacherClassDisciplines =
+        await TeacherClassDisciplineServices.getAllTeacherClassDisciplines();
+      res.status(200).json(teacherClassDisciplines);
+    } catch (error) {    
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
 }
 
 export default new TeacherClassDisciplineController();
