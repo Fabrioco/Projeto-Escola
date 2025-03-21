@@ -3,11 +3,11 @@ import TeacherClassDisciplineServices from "../services/teacherClassDiscipline";
 
 class TeacherClassDisciplineController {
   async createTeacherClassDiscipline(req: Request, res: Response) {
-    const { teacher_id, class_id, discipline_id, time, admin } = req.body;
+    const { teacher_id, class_id, discipline_id, time_id, admin } = req.body;
     if (!admin) {
       return res.status(500).json({ error: "Acesso negado" });
     }
-    if (!teacher_id || !class_id || !discipline_id || !time) {
+    if (!teacher_id || !class_id || !discipline_id || !time_id) {
       return res.status(500).json({ error: "Preencha todos os campos" });
     }
 
@@ -17,7 +17,7 @@ class TeacherClassDisciplineController {
           teacher_id,
           class_id,
           discipline_id,
-          time
+          time_id
         );
       res.status(201).json(teacherClassDiscipline);
     } catch (error) {
