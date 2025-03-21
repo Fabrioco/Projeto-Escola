@@ -32,7 +32,7 @@ class TeacherClassDisciplineController {
       const teacherClassDisciplines =
         await TeacherClassDisciplineServices.getAllTeacherClassDisciplines();
       res.status(200).json(teacherClassDisciplines);
-    } catch (error) {    
+    } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",
       });
@@ -47,6 +47,39 @@ class TeacherClassDisciplineController {
           Number(id)
         );
       res.status(200).json(teacherClassDiscipline);
+    } catch (error) {
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async deleteTeacherClassDiscipline(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      await TeacherClassDisciplineServices.deleteTeacherClassDiscipline(
+        Number(id)
+      );
+      res.status(200).json({ message: "Turma deletada com sucesso" });
+    } catch (error) {
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async updateTeacherClassDiscipline(req: Request, res: Response) {
+    const { id } = req.params;
+    const { teacher_id, class_id, discipline_id, time } = req.body;
+    try {
+      await TeacherClassDisciplineServices.updateTeacherClassDiscipline(
+        Number(id),
+        teacher_id,
+        class_id,
+        discipline_id,
+        time
+      );
+      res.status(200).json({ message: "Turma atualizada com sucesso" });
     } catch (error) {
       res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",

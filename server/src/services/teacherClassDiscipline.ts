@@ -59,6 +59,7 @@ class TeacherClassDisciplineServices {
     try {
       const teacherClassDiscipline = await TeacherClassDiscipline.update(
         {
+          id,
           teacher_id,
           class_id,
           discipline_id,
