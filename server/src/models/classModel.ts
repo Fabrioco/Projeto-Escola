@@ -5,7 +5,7 @@ import Student from "./studentModel";
 class Class extends Model {
   declare id: number;
   declare name: string;
-  declare grade: number;
+  declare grade: string;
   declare period: "Manhã" | "Tarde" | "Noite";
 }
 
@@ -21,7 +21,7 @@ Class.init(
       allowNull: false,
     },
     grade: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     period: {
