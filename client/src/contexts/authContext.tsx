@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 
   React.useEffect(() => {
     fetchUser();
-  }, []);
+  }, [localStorage.getItem("token")]);
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
