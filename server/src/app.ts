@@ -8,6 +8,7 @@ import routerDiscipline from "./routes/routerDiscipline";
 import routerPresence from "./routes/routerPresence";
 import routerNote from "./routes/routerNote";
 import routerVerifyCoordinator from "./routes/routerVerify";
+import routerTeacherClassDiscipline from "./routes/routerTeacherClassDiscipline";
 const cors = require("cors");
 
 configDotenv();
@@ -27,6 +28,7 @@ app.use("/api/discipline", routerDiscipline);
 app.use("/api/presence", routerPresence);
 app.use("/api/note", routerNote);
 app.use("/api/auth/verify", routerVerifyCoordinator);
+app.use("/api/directory", routerTeacherClassDiscipline);
 
 database.sync().then(() => {
   app.listen(PORT, () => {

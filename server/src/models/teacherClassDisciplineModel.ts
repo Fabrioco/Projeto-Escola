@@ -39,6 +39,10 @@ TeacherClassDiscipline.init(
         key: "id",
       },
     },
+    time: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize: database,
@@ -46,3 +50,5 @@ TeacherClassDiscipline.init(
     timestamps: false,
   }
 );
+
+export default TeacherClassDiscipline;
