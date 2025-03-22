@@ -25,7 +25,7 @@ TeacherClassDiscipline.init(
     },
     class_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "class",
         key: "id",
