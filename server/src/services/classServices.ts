@@ -1,5 +1,7 @@
 import { ClassProps } from "../interfaces/classInterface";
 import Class from "../models/classModel";
+import Student from "../models/studentModel";
+import TeacherClassDiscipline from "../models/teacherClassDisciplineModel";
 
 class ClassServices {
   static async createClass({ name, grade, period }: ClassProps) {
@@ -22,6 +24,11 @@ class ClassServices {
 
   static async deleteClass(id: number) {
     try {
+      await Student.update({ class_id: null }, { where: { class_id: id } });
+      await TeacherClassDiscipline.update(
+        { class_id: null },
+        { where: { class_id: id } }
+      );
       const deletedClass = await Class.destroy({ where: { id } });
       return deletedClass;
     } catch (error) {

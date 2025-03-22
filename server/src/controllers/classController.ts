@@ -60,8 +60,10 @@ class ClassController {
   async deleteClass(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await ClassServices.deleteClass(Number(id));
-      return res.status(200).json({ message: "Turma deletada com sucesso" });
+      const deletedClass = await ClassServices.deleteClass(Number(id));
+      return res
+        .status(200)
+        .json({ message: "Turma deletada com sucesso", deletedClass });
     } catch (error) {
       return res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",
