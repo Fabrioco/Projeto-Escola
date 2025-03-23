@@ -10,7 +10,7 @@ export function SelectClass() {
   }, [nameClassId]);
 
   return (
-    <div className="w-full flex relative group">
+    <div className="w-full flex relative group mt-4">
       <select
         name="classSelectAdd"
         id="classSelectAdd"

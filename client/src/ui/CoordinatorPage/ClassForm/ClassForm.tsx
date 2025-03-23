@@ -1,4 +1,4 @@
-import { SelectClass } from "./_components/Form/_components/selectClass";
+import { SelectClass } from "./_components/selectClass";
 import { Form } from "./_components/Form/form";
 import { NavButtons } from "./_components/navButtons";
 

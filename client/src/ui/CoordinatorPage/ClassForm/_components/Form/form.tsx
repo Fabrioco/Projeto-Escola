@@ -2,7 +2,7 @@ import { useCoordinatorContext } from "@/contexts/coordinatorContext";
 import { ButtonForm } from "./_components/buttonForm";
 import { InputGradeClass } from "./_components/inputGradeClass";
 import { InputNameClass } from "./_components/inputNameClass";
-import { SelectPeriod } from "../selectPeriod";
+import { SelectPeriod } from "./_components/selectPeriod";
 import { Trash, ArrowClockwise, Plus } from "@phosphor-icons/react/dist/ssr";
 
 export function Form() {
