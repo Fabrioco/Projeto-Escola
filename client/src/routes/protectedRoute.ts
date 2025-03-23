@@ -17,7 +17,6 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
       }
       fetchUser();
     }
-    console.log(user);
   }, [user, router, fetchUser]);
   return user ? children : null;
 };
