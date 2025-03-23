@@ -29,7 +29,10 @@ export function ClassForm() {
 
   const fetchClasses = async () => {
     const response = await axios.get(`http://localhost:5000/api/class`);
-    setClasses(response.data);
+    const classesOrganized = response.data.sort(
+      (a: ClassesProps, b: ClassesProps) => a.id - b.id
+    );
+    setClasses(classesOrganized);
   };
 
   useEffect(() => {
