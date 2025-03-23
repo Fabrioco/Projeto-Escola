@@ -5,9 +5,11 @@ export function SelectClass() {
   const { nameClassId, setNameClassId, fetchClasses, classes } =
     useCoordinatorContext();
 
+  const memorizedFetchClasses = React.useCallback(fetchClasses, [fetchClasses]);
+
   React.useEffect(() => {
-    fetchClasses();
-  }, [nameClassId]);
+    memorizedFetchClasses();
+  }, [nameClassId, memorizedFetchClasses]);
 
   return (
     <div className="w-full flex relative group mt-4">
@@ -19,9 +21,7 @@ export function SelectClass() {
         value={nameClassId}
         onChange={(e) => setNameClassId(e.target.value)}
       >
-        <option value="" selected>
-          Selecione uma turma
-        </option>
+        <option value="">Selecione uma turma</option>
         {classes &&
           classes.map((c) => (
             <option key={c.id} value={c.id}>

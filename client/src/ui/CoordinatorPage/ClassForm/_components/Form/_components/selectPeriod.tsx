@@ -13,7 +13,7 @@ export function SelectPeriod() {
         value={period}
         onChange={(e) => setPeriod(e.target.value)}
       >
-        <option value="" disabled selected>
+        <option value="">
           Selecione um período
         </option>
         <option value="Manhã">Manhã</option>
