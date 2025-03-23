@@ -5,12 +5,9 @@ export function SelectClass() {
   const { nameClassId, setNameClassId, fetchClasses, classes } =
     useCoordinatorContext();
 
-  const memorizedFetchClasses = React.useCallback(fetchClasses, [fetchClasses]);
-
   React.useEffect(() => {
-    memorizedFetchClasses();
-  }, [nameClassId, memorizedFetchClasses]);
-
+    fetchClasses();
+  }, [nameClassId]);
   return (
     <div className="w-full flex relative group mt-4">
       <select

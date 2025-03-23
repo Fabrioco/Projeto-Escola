@@ -1,21 +1,21 @@
 import { useCoordinatorContext } from "@/contexts/coordinatorContext";
 
 export function InputGradeClass() {
-    const { grade, setGrade } = useCoordinatorContext();
-      const handleGradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-    
-        const numberMatch = inputValue.match(/\d+/g);
-        const letterMatch = inputValue.match(/[A-Za-z]+/g);
-    
-        const number = numberMatch ? numberMatch[0] : "";
-        const letter = letterMatch ? letterMatch[0].toUpperCase() : "";
-    
-        const formatted = number && letter ? `${number}° ${letter}` : inputValue;
-    
-        setGrade(formatted);
-      };
-    
+  const { grade, setGrade } = useCoordinatorContext();
+  const handleGradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    const numberMatch = inputValue.match(/\d+/g);
+    const letterMatch = inputValue.match(/[A-Za-z]+/g);
+
+    const number = numberMatch ? numberMatch[0] : "";
+    const letter = letterMatch ? letterMatch[0].toUpperCase() : "";
+
+    const formatted = number && letter ? `${number}° ${letter}` : inputValue;
+
+    setGrade(formatted);
+  };
+
   return (
     <div className="w-full flex relative group">
       <label

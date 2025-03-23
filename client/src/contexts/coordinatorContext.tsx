@@ -3,7 +3,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useAuth } from "./authContext";
-import { ClassesProps, CoordinatorContextProps, CoordinatorProviderProps } from "@/types/CoordinatorContextType";
+import {
+  ClassesProps,
+  CoordinatorContextProps,
+  CoordinatorProviderProps,
+} from "@/types/CoordinatorContextType";
 
 const CoordinatorContext = React.createContext<CoordinatorContextProps | null>(
   null
@@ -44,10 +48,13 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
       return;
     }
     const id = Number(nameClassId);
-    const response = await axios.get(`http://localhost:5000/api/class/${id}`);
-    setName(response.data.name);
-    setGrade(response.data.grade);
-    setPeriod(response.data.period);
+    await axios
+      .get(`http://localhost:5000/api/class/${id}`)
+      .then((response) => {
+        setName(response.data.name);
+        setGrade(response.data.grade);
+        setPeriod(response.data.period);
+      });
   };
 
   const addClass = async (event: React.FormEvent) => {
@@ -106,6 +113,10 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
       delete: false,
     });
   };
+
+  React.useEffect(() => {
+    fetchClass();
+  }, [nameClassId]);
 
   return (
     <CoordinatorContext.Provider
