@@ -48,8 +48,14 @@ class ClassController {
     try {
       const { id } = req.params;
       const { name, grade, period } = req.body;
-      await ClassServices.updateClass(Number(id), { name, grade, period });
-      return res.status(200).json({ message: "Turma atualizada com sucesso" });
+      const updatedClass = await ClassServices.updateClass(Number(id), {
+        name,
+        grade,
+        period,
+      });
+      return res
+        .status(200)
+        .json({ message: "Turma atualizada com sucesso", updatedClass });
     } catch (error) {
       return res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",
