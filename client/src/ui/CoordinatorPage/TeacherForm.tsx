@@ -4,17 +4,17 @@ export function TeacherForm() {
       <h1>Professores</h1>
       <form action="">
         <div>
-          <label htmlFor="nameTeacher">Nome</label>
+          <label htmlFor="nameAdd">Nome</label>
           <input type="text" id="nameTeacher" name="nameTeacher" />
         </div>
 
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="emailAdd">Email</label>
           <input type="email" id="email" name="email" />
         </div>
 
         <div>
-          <label htmlFor="password">Senha</label>
+          <label htmlFor="passwordAdd">Senha</label>
           <input type="password" id="password" name="password" />
         </div>
 

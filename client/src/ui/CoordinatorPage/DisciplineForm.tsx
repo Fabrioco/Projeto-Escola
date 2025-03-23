@@ -10,8 +10,8 @@ export function DisciplineForm() {
         </div>
 
         <div>
-          <label htmlFor="grade">Serie</label>
-          <input type="text" id="grade" name="grade" />
+          <label htmlFor="gradeDiscipline">Serie</label>
+          <input type="text" id="gradeDiscipline" name="gradeDiscipline" />
         </div>
 
         <button type="submit">Cadastrar</button>
