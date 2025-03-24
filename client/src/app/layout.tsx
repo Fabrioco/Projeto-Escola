@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/ui/Header/page";
 import { AuthProvider } from "@/contexts/authContext";
 import { Footer } from "@/ui/Footer/page";
-import { CoordinatorProvider } from "@/contexts/coordinatorContext";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -24,9 +23,7 @@ export default function RootLayout({
         className={`antialiased ${montserrat.className} bg-gray-200 w-screen min-h-screen flex flex-col items-center justify-between`}
       >
         <Header />
-        <AuthProvider>
-          <CoordinatorProvider>{children}</CoordinatorProvider>
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
         <Footer />
       </body>
     </html>
