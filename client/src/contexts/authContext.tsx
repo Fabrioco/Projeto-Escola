@@ -3,34 +3,7 @@
 import axios, { AxiosError } from "axios";
 import React from "react";
 import { useRouter } from "next/navigation";
-
-type SignInProps = {
-  email: string;
-  password: string;
-  keepLogged: boolean;
-  role: string;
-};
-
-type UserProps = {
-  name: string;
-  email: string;
-  password: string;
-  class_id?: number;
-  period?: string;
-  admin?: boolean;
-};
-
-type AuthContextType = {
-  signIn: ({ email, password, keepLogged, role }: SignInProps) => Promise<void>;
-  loading: boolean;
-  logOut: () => void;
-  user: UserProps | null;
-  fetchUser: () => Promise<void>;
-};
-
-type AuthContextProviderProps = {
-  children: React.ReactNode;
-};
+import { AuthContextProviderProps, AuthContextType, SignInProps, UserProps } from "@/types/AuthContextType";
 
 const AuthContext = React.createContext<AuthContextType | null>(null);
 
