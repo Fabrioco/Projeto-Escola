@@ -1,6 +1,6 @@
-"use client"; // Depois vou pôr no componente correto
+"use client";
 import { LogOutButton } from "@/components/logOutButton";
-import { CoordinatorProvider } from "@/contexts/coordinatorContext";
+import { ClassProvider } from "@/contexts/classContext";
 import ProtectedRoute from "@/routes/protectedRoute";
 import { AttributionDisciplineForm } from "@/ui/CoordinatorPage/AttribuitionDisciplineForm";
 import { ClassForm } from "@/ui/CoordinatorPage/ClassForm/ClassForm";
@@ -12,7 +12,7 @@ import { TeacherForm } from "@/ui/CoordinatorPage/TeacherForm/teacherForm";
 export default function CoordinatorPage() {
   return (
     <ProtectedRoute>
-      <CoordinatorProvider>
+      <ClassProvider>
         <ClassForm />
         <StudentForm />
         <TeacherForm />
@@ -20,7 +20,7 @@ export default function CoordinatorPage() {
         <DisciplineForm />
         <AttributionDisciplineForm />
         <LogOutButton />
-      </CoordinatorProvider>
+      </ClassProvider>
     </ProtectedRoute>
   );
 }

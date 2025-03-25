@@ -1,7 +1,7 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 
 export function InputGradeClass() {
-  const { grade, setGrade } = useCoordinatorContext();
+  const { grade, setGrade } = useClassContext();
   const handleGradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 

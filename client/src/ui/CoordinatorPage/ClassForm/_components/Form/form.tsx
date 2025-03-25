@@ -1,4 +1,4 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 import { ButtonForm } from "./_components/buttonForm";
 import { InputGradeClass } from "./_components/inputGradeClass";
 import { InputNameClass } from "./_components/inputNameClass";
@@ -6,7 +6,7 @@ import { SelectPeriod } from "./_components/selectPeriod";
 import { Trash, ArrowClockwise, Plus } from "@phosphor-icons/react/dist/ssr";
 
 export function Form() {
-  const { edit, addClass, editClass, deleteClass } = useCoordinatorContext();
+  const { edit, addClass, editClass, deleteClass } = useClassContext();
   return (
     <form onSubmit={addClass} className={`flex flex-col gap-2 w-11/12 p-2`}>
       <InputNameClass />

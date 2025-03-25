@@ -1,8 +1,8 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 import { ButtonNav } from "./buttonNav";
 
 export function NavButtons() {
-  const { setEdit, setNameClassId } = useCoordinatorContext();
+  const { setEdit, setNameClassId } = useClassContext();
   return (
     <div className="flex gap-2 m-4">
       <ButtonNav

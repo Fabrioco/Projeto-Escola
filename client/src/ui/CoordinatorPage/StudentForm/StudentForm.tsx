@@ -1,14 +1,14 @@
 "use client";
 
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 import { UserProps } from "@/types/AuthContextType";
-import { ClassesProps } from "@/types/CoordinatorContextType";
+import { ClassesProps } from "@/types/ClassContextType";
 import { Trash } from "@phosphor-icons/react/dist/ssr";
 import axios, { AxiosError } from "axios";
 import React from "react";
 
 export function StudentForm() {
-  const { classes } = useCoordinatorContext();
+  const { classes } = useClassContext();
 
   const [nameStudent, setNameStudent] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");

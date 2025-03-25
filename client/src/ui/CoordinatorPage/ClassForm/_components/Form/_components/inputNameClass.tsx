@@ -1,7 +1,7 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 
 export function InputNameClass() {
-  const { name, setName } = useCoordinatorContext();
+  const { name, setName } = useClassContext();
   return (
     <div className="w-full flex relative group">
       <label

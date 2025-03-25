@@ -1,4 +1,4 @@
-export type CoordinatorContextProps = {
+export type ClassContextProps = {
   fetchClasses: () => void;
   fetchClass: () => void;
   addClass: (e: React.FormEvent) => void;
@@ -28,7 +28,7 @@ export type CoordinatorContextProps = {
   setClasses: React.Dispatch<React.SetStateAction<ClassesProps[] | null>>;
 };
 
-export type CoordinatorProviderProps = {
+export type ClassProviderProps = {
   children: React.ReactNode;
 };
 

@@ -4,18 +4,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useAuth } from "./authContext";
 import {
+  ClassContextProps,
   ClassesProps,
-  CoordinatorContextProps,
-  CoordinatorProviderProps,
-} from "@/types/CoordinatorContextType";
+  ClassProviderProps,
+} from "@/types/ClassContextType";
 
-const CoordinatorContext = React.createContext<CoordinatorContextProps | null>(
-  null
-);
+const ClassContext = React.createContext<ClassContextProps | null>(null);
 
-export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
-  children,
-}) => {
+export const ClassProvider: React.FC<ClassProviderProps> = ({ children }) => {
   const { user } = useAuth();
   const [classes, setClasses] = useState<ClassesProps[] | null>(null);
   const [nameClassId, setNameClassId] = useState<string>("");
@@ -32,13 +28,13 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
     delete: false,
   });
 
-  const fetchClasses = async () => {
+  const fetchClasses = React.useCallback(async () => {
     const response = await axios.get(`http://localhost:5000/api/class`);
     const classesOrganized = response.data.sort(
       (a: ClassesProps, b: ClassesProps) => a.id - b.id
     );
     setClasses(classesOrganized);
-  };
+  }, []);
 
   const fetchClass = React.useCallback(async () => {
     if (!nameClassId) {
@@ -119,7 +115,7 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
   }, [fetchClass]);
 
   return (
-    <CoordinatorContext.Provider
+    <ClassContext.Provider
       value={{
         fetchClasses,
         fetchClass,
@@ -141,15 +137,15 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
       }}
     >
       {children}
-    </CoordinatorContext.Provider>
+    </ClassContext.Provider>
   );
 };
 
-export const useCoordinatorContext = () => {
-  const context = React.useContext(CoordinatorContext);
+export const useClassContext = () => {
+  const context = React.useContext(ClassContext);
   if (!context) {
     throw new Error(
-      "useCoordinatorContext deve ser usado dentro do CoordinatorProvider"
+      "useClassContext deve ser usado dentro do CoordinatorProvider"
     );
   }
   return context;

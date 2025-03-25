@@ -1,7 +1,7 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 
 export function SelectPeriod() {
-  const { period, setPeriod } = useCoordinatorContext();
+  const { period, setPeriod } = useClassContext();
 
   return (
     <div className="w-full flex relative group">
@@ -13,9 +13,7 @@ export function SelectPeriod() {
         value={period}
         onChange={(e) => setPeriod(e.target.value)}
       >
-        <option value="">
-          Selecione um período
-        </option>
+        <option value="">Selecione um período</option>
         <option value="Manhã">Manhã</option>
         <option value="Tarde">Tarde</option>
         <option value="Noite">Noite</option>

@@ -1,13 +1,13 @@
-import { useCoordinatorContext } from "@/contexts/coordinatorContext";
+import { useClassContext } from "@/contexts/classContext";
 import React from "react";
 
 export function SelectClass() {
   const { nameClassId, setNameClassId, fetchClasses, classes } =
-    useCoordinatorContext();
+    useClassContext();
 
   React.useEffect(() => {
     fetchClasses();
-  }, [nameClassId]);
+  }, [fetchClasses]);
   return (
     <div className="w-full flex relative group mt-4">
       <select
