@@ -40,7 +40,7 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
     setClasses(classesOrganized);
   };
 
-  const fetchClass = async () => {
+  const fetchClass = React.useCallback(async () => {
     if (!nameClassId) {
       setName("");
       setGrade("");
@@ -55,7 +55,7 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
         setGrade(response.data.grade);
         setPeriod(response.data.period);
       });
-  };
+  }, [nameClassId]);
 
   const addClass = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -116,7 +116,7 @@ export const CoordinatorProvider: React.FC<CoordinatorProviderProps> = ({
 
   React.useEffect(() => {
     fetchClass();
-  }, [nameClassId]);
+  }, [fetchClass]);
 
   return (
     <CoordinatorContext.Provider
