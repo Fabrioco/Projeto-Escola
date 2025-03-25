@@ -1,9 +1,16 @@
-import { TeacherUserProps } from "@/types/TeacherContextType";
-import { Trash } from "@phosphor-icons/react";
+import {
+  TeacherContextType,
+  TeacherProviderType,
+  TeacherUserProps,
+} from "@/types/TeacherContextType";
 import axios from "axios";
 import React from "react";
 
-export function TeacherForm() {
+const TeacherContext = React.createContext<TeacherContextType | null>(null);
+
+export const TeacherProvider: React.FC<TeacherProviderType> = ({
+  children,
+}) => {
   const [name, setName] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
@@ -89,80 +96,39 @@ export function TeacherForm() {
   }, []);
 
   return (
-    <div>
-      <h1>Professores</h1>
-      <form action="" onSubmit={edit ? updateTeacher : addTeacher}>
-        <div>
-          <label htmlFor="nameAdd">Nome</label>
-          <input
-            type="text"
-            id="nameTeacher"
-            name="nameTeacher"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="emailAdd">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="passwordAdd">Senha</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={edit}
-            className="disabled:cursor-not-allowed"
-          />
-        </div>
-
-        <button type="submit">{edit ? "Atualizar" : "Cadastrar"}</button>
-      </form>
-
-      <div>
-        <button onClick={clearForm} type="button">
-          Limpar
-        </button>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allTeachers &&
-            allTeachers.map((teacher) => (
-              <tr key={teacher.id}>
-                <td
-                  onClick={() => {
-                    fetchTeacher(teacher.id);
-                    setEdit(true);
-                  }}
-                >
-                  {teacher.name}
-                </td>
-                <td>{teacher.email}</td>
-                <td>
-                  <Trash onClick={deleteTeacher} size={20} weight="bold" />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
+    <TeacherContext.Provider
+      value={{
+        addTeacher,
+        fetchAllTeachers,
+        fetchTeacher,
+        updateTeacher,
+        deleteTeacher,
+        clearForm,
+        name,
+        setName,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        teacherId,
+        setTeacherId,
+        allTeachers,
+        setAllTeachers,
+        edit,
+        setEdit,
+      }}
+    >
+      {children}
+    </TeacherContext.Provider>
   );
-}
+};
+
+export const useTeacherContext = () => {
+  const context = React.useContext(TeacherContext);
+  if (!context) {
+    throw new Error(
+      "useTeacherContext deve ser usado dentro do TeacherProvider"
+    );
+  }
+  return context;
+};
