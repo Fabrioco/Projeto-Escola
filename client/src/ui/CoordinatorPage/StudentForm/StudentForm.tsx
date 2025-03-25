@@ -1,169 +1,32 @@
 "use client";
 
 import { useClassContext } from "@/contexts/classContext";
-import { UserProps } from "@/types/AuthContextType";
-import { ClassesProps } from "@/types/ClassContextType";
+import { useStudentContext } from "@/contexts/studentContext";
 import { Trash } from "@phosphor-icons/react/dist/ssr";
-import axios, { AxiosError } from "axios";
 import React from "react";
 
 export function StudentForm() {
   const { classes } = useClassContext();
-
-  const [nameStudent, setNameStudent] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-  const [classId, setClassId] = React.useState<string>("");
-  const [period, setPeriod] = React.useState<string>("");
-
-  const [students, setStudents] = React.useState<UserProps[]>([]);
-  const [classesList, setClassesList] = React.useState<ClassesProps[]>([]);
-  const [edit, setEdit] = React.useState<boolean>(false);
-  const [userId, setUserId] = React.useState<number>(0);
-
-  const addStudent = async () => {
-    if (!nameStudent || !email || !password || !classId || !period) {
-      alert("Preencha todos os campos");
-      return;
-    }
-
-    await axios
-      .post("http://localhost:5000/api/create/student", {
-        name: nameStudent,
-        email,
-        password,
-        class_id: classId,
-        period,
-      })
-      .then(() => {
-        getAllStudents();
-        cleanForm();
-        alert("Estudante cadastrado com sucesso");
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError && error.response) {
-          console.log("Erro na requisição", {
-            status: error.response.status,
-            data: error.response.data.error,
-            url: error.config?.url,
-          });
-        } else {
-          console.log("Erro desconhecido", error);
-        }
-      });
-  };
-
-  const getAllStudents = async () => {
-    await axios
-      .get("http://localhost:5000/api/student")
-      .then((res) => {
-        setStudents(res.data);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError && error.response) {
-          console.log("Erro na requisição", {
-            status: error.response.status,
-            data: error.response.data.error,
-            url: error.config?.url,
-          });
-        } else {
-          console.log("Erro desconhecido", error);
-        }
-      });
-  };
-
-  const fetchClass = async () => {
-    await axios
-      .get(`http://localhost:5000/api/class`)
-      .then((res) => {
-        setClassesList(res.data);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError && error.response) {
-          console.log("Erro na requisição", {
-            status: error.response.status,
-            data: error.response.data.error,
-            url: error.config?.url,
-          });
-        } else {
-          console.log("Erro desconhecido", error);
-        }
-      });
-  };
-
-  React.useEffect(() => {
-    getAllStudents();
-    fetchClass();
-  }, []);
-
-  const handlePullData = async (id: number) => {
-    setEdit(true);
-    await axios.get(`http://localhost:5000/api/student/${id}`).then((res) => {
-      console.log(res.data);
-      setUserId(res.data.id);
-      setNameStudent(res.data.name);
-      setEmail(res.data.email);
-      setPassword(res.data.password);
-      setClassId(res.data.class_id ? res.data.class_id : "");
-      setPeriod(res.data.period);
-    });
-  };
-
-  const updateStudent = async () => {
-    await axios
-      .put(`http://localhost:5000/api/student/${userId}`, {
-        name: nameStudent,
-        email,
-        password,
-        class_id: classId,
-        period,
-      })
-      .then(() => {
-        getAllStudents();
-        cleanForm();
-        alert("Estudante atualizado com sucesso");
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError && error.response) {
-          console.log("Erro na requisição", {
-            status: error.response.status,
-            data: error.response.data.error,
-            url: error.config?.url,
-          });
-        } else {
-          console.log("Erro desconhecido", error);
-        }
-      });
-  };
-
-  const deleteStudent = async (id: number) => {
-    await axios
-      .delete(`http://localhost:5000/api/student/${id}`)
-      .then(() => {
-        getAllStudents();
-        alert("Estudante deletado com sucesso");
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError && error.response) {
-          console.log("Erro na requisição", {
-            status: error.response.status,
-            data: error.response.data.error,
-            url: error.config?.url,
-          });
-        } else {
-          console.log("Erro desconhecido", error);
-        }
-      });
-  };
-
-  const cleanForm = () => {
-    setNameStudent("");
-    setEmail("");
-    setPassword("");
-    setClassId("");
-    setPeriod("");
-    setEdit(false);
-  };
+  const {
+    addStudent,
+    nameStudent,
+    setNameStudent,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    classId,
+    setClassId,
+    period,
+    setPeriod,
+    students,
+    edit,
+    deleteStudent,
+    handlePullData,
+    updateStudent,
+    cleanForm,
+    classesList,
+  } = useStudentContext();
 
   return (
     <div>
