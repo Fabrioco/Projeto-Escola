@@ -1,92 +1,24 @@
-import { TeacherUserProps } from "@/types/TeacherContextType";
+import { useTeacherContext } from "@/contexts/teacherContext";
 import { Trash } from "@phosphor-icons/react";
-import axios from "axios";
 import React from "react";
 
 export function TeacherForm() {
-  const [name, setName] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-  const [teacherId, setTeacherId] = React.useState<number>(0);
-  const [allTeachers, setAllTeachers] = React.useState<TeacherUserProps[]>([]);
-  const [edit, setEdit] = React.useState<boolean>(false);
-
-  const addTeacher = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:5000/api/create/teacher", {
-        name,
-        email,
-        password,
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          fetchAllTeachers();
-          alert("Professor criado");
-        }
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const fetchAllTeachers = async () => {
-    await axios
-      .get("http://localhost:5000/api/teacher")
-      .then((res) => {
-        console.log(res.data);
-        setAllTeachers(res.data);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const fetchTeacher = async (id: number) => {
-    await axios
-      .get(`http://localhost:5000/api/teacher/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setTeacherId(res.data.id);
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setPassword(res.data.password);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const updateTeacher = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const id = teacherId;
-    await axios
-      .put(`http://localhost:5000/api/teacher/${id}`, {
-        name,
-        email,
-      })
-      .then((res) => {
-        console.log(res.data);
-        fetchAllTeachers();
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const deleteTeacher = async () => {
-    const id = teacherId;
-    await axios
-      .delete(`http://localhost:5000/api/teacher/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        fetchAllTeachers();
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const clearForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setEdit(false);
-  };
-
-  React.useEffect(() => {
-    fetchAllTeachers();
-  }, []);
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    allTeachers,
+    edit,
+    setEdit,
+    addTeacher,
+    fetchTeacher,
+    deleteTeacher,
+    updateTeacher,
+    clearForm,
+  } = useTeacherContext();
 
   return (
     <div>
@@ -157,7 +89,11 @@ export function TeacherForm() {
                 </td>
                 <td>{teacher.email}</td>
                 <td>
-                  <Trash onClick={deleteTeacher} size={20} weight="bold" />
+                  <Trash
+                    onClick={() => deleteTeacher(teacher.id)}
+                    size={20}
+                    weight="bold"
+                  />
                 </td>
               </tr>
             ))}
