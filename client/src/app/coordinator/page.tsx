@@ -7,7 +7,7 @@ import { ClassForm } from "@/ui/CoordinatorPage/ClassForm/ClassForm";
 import { CoordinatorForm } from "@/ui/CoordinatorPage/CoordinatorForm";
 import { DisciplineForm } from "@/ui/CoordinatorPage/DisciplineForm";
 import { StudentForm } from "@/ui/CoordinatorPage/StudentForm/StudentForm";
-import { TeacherForm } from "@/ui/CoordinatorPage/TeacherForm";
+import { TeacherForm } from "@/ui/CoordinatorPage/TeacherForm/teacherForm";
 
 export default function CoordinatorPage() {
   return (
