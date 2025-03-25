@@ -11,6 +11,7 @@ import routerVerifyCoordinator from "./routes/routerVerify";
 import routerTeacherClassDiscipline from "./routes/routerTeacherClassDiscipline";
 import routerSchedule from "./routes/routerSchedule";
 import routerStudent from "./routes/routerStudent";
+import routerTeacher from "./routes/routerTeacher";
 const cors = require("cors");
 
 configDotenv();
@@ -33,6 +34,7 @@ app.use("/api/auth/verify", routerVerifyCoordinator);
 app.use("/api/directory", routerTeacherClassDiscipline);
 app.use("/api/schedule", routerSchedule);
 app.use("/api/student", routerStudent);
+app.use("/api/teacher", routerTeacher);
 
 database.sync().then(() => {
   app.listen(PORT, () => {
