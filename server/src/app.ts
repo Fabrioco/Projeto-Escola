@@ -12,6 +12,7 @@ import routerTeacherClassDiscipline from "./routes/routerTeacherClassDiscipline"
 import routerSchedule from "./routes/routerSchedule";
 import routerStudent from "./routes/routerStudent";
 import routerTeacher from "./routes/routerTeacher";
+import routerCoordinator from "./routes/routerCoordinator";
 const cors = require("cors");
 
 configDotenv();
@@ -35,6 +36,7 @@ app.use("/api/directory", routerTeacherClassDiscipline);
 app.use("/api/schedule", routerSchedule);
 app.use("/api/student", routerStudent);
 app.use("/api/teacher", routerTeacher);
+app.use("/api/coordinator", routerCoordinator);
 
 database.sync().then(() => {
   app.listen(PORT, () => {
