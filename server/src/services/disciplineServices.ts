@@ -1,5 +1,6 @@
 import { DisciplineProps } from "../interfaces/disciplineInterface";
 import Discipline from "../models/disciplineModel";
+import TeacherClassDiscipline from "../models/teacherClassDisciplineModel";
 
 class DisciplineServices {
   static async createDiscipline({ name, grade }: DisciplineProps) {
@@ -26,6 +27,10 @@ class DisciplineServices {
   }
 
   static async deleteDiscipline(id: number) {
+    await TeacherClassDiscipline.update(
+      { discipline_id: null },
+      { where: { discipline_id: id } }
+    );
     const deletedDiscipline = await Discipline.destroy({ where: { id } });
     return deletedDiscipline;
   }
