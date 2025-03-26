@@ -25,9 +25,34 @@ export function CoordinatorForm() {
             data: error.response.data.error,
             url: error.config?.url,
           });
+        } else {
+          console.log("Erro desconhecido", error);
         }
       });
   };
+
+  const fetchAllCoordinator = async () => {
+    await axios
+      .get("http://localhost:5000/api/coordinator")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        if (error instanceof axios.AxiosError && error.response) {
+          console.log("Erro na requisição", {
+            status: error.response.status,
+            data: error.response.data.error,
+            url: error.config?.url,
+          });
+        } else {
+          console.log("Erro desconhecido", error);
+        }
+      });
+  };
+
+  React.useEffect(() => {
+    fetchAllCoordinator();
+  });
 
   const clearForm = () => {
     setName("");
