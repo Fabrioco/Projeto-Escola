@@ -39,7 +39,6 @@ export const TeacherProvider: React.FC<TeacherProviderType> = ({
     await axios
       .get("http://localhost:5000/api/teacher")
       .then((res) => {
-        console.log(res.data);
         setAllTeachers(res.data);
       })
       .catch((error) => console.log(error));
