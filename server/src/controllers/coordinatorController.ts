@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import AuthServices from "../services/authServices";
+import CoordinatorServices from "../services/coordinatorServices";
 
 class CoordinatorController {
   async login(req: Request, res: Response): Promise<Response> {
@@ -38,6 +39,62 @@ class CoordinatorController {
         password,
       });
       return res.status(201).json(coordinator);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async getAllCoordinator(req: Request, res: Response): Promise<Response> {
+    try {
+      const coordinator = await CoordinatorServices.getAllCoordinator();
+      return res.status(200).json(coordinator);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async getCoordinator(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const coordinator = await CoordinatorServices.getCoordinatorById(
+        Number(id)
+      );
+      return res.status(200).json(coordinator);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async deleteCoordinator(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const coordinator = await CoordinatorServices.deleteCoordinator(
+        Number(id)
+      );
+      return res.status(200).json(coordinator);
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      });
+    }
+  }
+
+  async updateCoordinator(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const { name, email } = req.body;
+      const coordinator = await CoordinatorServices.updateCoordinator(
+        Number(id),
+        name,
+        email
+      );
+      return res.status(200).json(coordinator);
     } catch (error) {
       return res.status(500).json({
         error: error instanceof Error ? error.message : "Erro desconhecido",
