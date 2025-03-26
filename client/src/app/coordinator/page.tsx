@@ -8,6 +8,7 @@ import { DisciplineForm } from "@/ui/CoordinatorPage/DisciplineForm/DisciplineFo
 import { StudentForm } from "@/ui/CoordinatorPage/StudentForm/StudentForm";
 import { TeacherForm } from "@/ui/CoordinatorPage/TeacherForm/teacherForm";
 import { ContextsCoordinatorPage } from "./context";
+import { ScheduleForm } from "@/ui/CoordinatorPage/ScheduleForm/scheduleForm";
 
 export default function CoordinatorPage() {
   return (
@@ -18,6 +19,7 @@ export default function CoordinatorPage() {
         <TeacherForm />
         <CoordinatorForm />
         <DisciplineForm />
+        <ScheduleForm />
         <AttributionDisciplineForm />
         <LogOutButton />
       </ContextsCoordinatorPage>
