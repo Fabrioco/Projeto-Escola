@@ -1,5 +1,6 @@
 import { ClassProvider } from "@/contexts/classContext";
 import { CoordinatorProvider } from "@/contexts/coordinatorContext";
+import { DisciplineProvider } from "@/contexts/DisciplineContext";
 import { StudentProvider } from "@/contexts/studentContext";
 import { TeacherProvider } from "@/contexts/teacherContext";
 import React from "react";
@@ -11,7 +12,9 @@ export const ContextsCoordinatorPage: React.FC<{
     <ClassProvider>
       <StudentProvider>
         <TeacherProvider>
-          <CoordinatorProvider>{children}</CoordinatorProvider>
+          <CoordinatorProvider>
+            <DisciplineProvider>{children}</DisciplineProvider>
+          </CoordinatorProvider>
         </TeacherProvider>
       </StudentProvider>
     </ClassProvider>
