@@ -32,7 +32,7 @@ app.use("/api/discipline", routerDiscipline);
 app.use("/api/presence", routerPresence);
 app.use("/api/note", routerNote);
 app.use("/api/auth/verify", routerVerifyCoordinator);
-app.use("/api/directory", routerTeacherClassDiscipline);
+app.use("/api/attribution", routerTeacherClassDiscipline);
 app.use("/api/schedule", routerSchedule);
 app.use("/api/student", routerStudent);
 app.use("/api/teacher", routerTeacher);
