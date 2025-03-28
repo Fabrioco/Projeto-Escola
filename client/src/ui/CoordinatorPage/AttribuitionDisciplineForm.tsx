@@ -1,4 +1,13 @@
+import { useClassContext } from "@/contexts/classContext";
+import { useDisciplineContext } from "@/contexts/disciplineContext";
+import { useScheduleContext } from "@/contexts/scheduleContext";
+import { useTeacherContext } from "@/contexts/teacherContext";
+
 export function AttributionDisciplineForm() {
+  const { allTeachers } = useTeacherContext();
+  const { classes } = useClassContext();
+  const { disciplines } = useDisciplineContext();
+  const { schedules } = useScheduleContext();
   return (
     <div>
       <h1>Atribuir disciplina</h1>
@@ -10,7 +19,12 @@ export function AttributionDisciplineForm() {
             <option value="" disabled selected>
               Selecione
             </option>
-            {/* AQUI EU VOU PEGAR OS PROFESSORES DO BANCO DE DADOS */}
+            {allTeachers &&
+              allTeachers.map((teacher) => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.name}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -20,7 +34,12 @@ export function AttributionDisciplineForm() {
             <option value="" disabled selected>
               Selecione
             </option>
-            {/* AQUI EU VOU PEGAR AS SALAS DO BANCO DE DADOS */}
+            {classes &&
+              classes.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} - {c.period} - {c.grade}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -30,7 +49,12 @@ export function AttributionDisciplineForm() {
             <option value="" disabled selected>
               Selecione uma disciplina
             </option>
-            {/* AQUI EU VOU PEGAR AS DISCIPLINAS DO BANCO DE DADOS */}
+            {disciplines &&
+              disciplines.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.name}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -40,7 +64,12 @@ export function AttributionDisciplineForm() {
             <option value="" disabled selected>
               Selecione
             </option>
-            {/* AQUI EU VOU PEGAR OS HORARIOS DO BANCO DE DADOS */}
+            {schedules &&
+              schedules.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.time}
+                </option>
+              ))}
           </select>
         </div>
       </form>
