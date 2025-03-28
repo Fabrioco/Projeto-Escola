@@ -1,4 +1,4 @@
-import { useDisciplineContext } from "@/contexts/DisciplineContext";
+import { useDisciplineContext } from "@/contexts/disciplineContext";
 import { Trash } from "@phosphor-icons/react";
 
 export function TableDiscipline() {

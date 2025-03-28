@@ -1,4 +1,4 @@
-import { useDisciplineContext } from "@/contexts/DisciplineContext";
+import { useDisciplineContext } from "@/contexts/disciplineContext";
 
 export const InputGradeDiscipline = () => {
   const { grade, setGrade } = useDisciplineContext();

@@ -1,4 +1,4 @@
-import { useDisciplineContext } from "@/contexts/DisciplineContext";
+import { useDisciplineContext } from "@/contexts/disciplineContext";
 
 export function ButtonClearForm() {
   const { clearForm } = useDisciplineContext();

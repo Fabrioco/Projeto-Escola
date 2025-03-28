@@ -1,4 +1,4 @@
-import { useDisciplineContext } from "@/contexts/DisciplineContext";
+import { useDisciplineContext } from "@/contexts/disciplineContext";
 import { InputNameDiscipline } from "./_components/inputName";
 import { InputGradeDiscipline } from "./_components/inputGrade";
 
