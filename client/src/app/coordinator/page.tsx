@@ -1,7 +1,7 @@
 "use client";
 import { LogOutButton } from "@/components/logOutButton";
 import ProtectedRoute from "@/routes/protectedRoute";
-import { AttributionDisciplineForm } from "@/ui/CoordinatorPage/AttribuitionDisciplineForm";
+import { AttributionDisciplineForm } from "@/ui/CoordinatorPage/AttributionDisciplineForm/AttribuitionDisciplineForm";
 import { ClassForm } from "@/ui/CoordinatorPage/ClassForm/ClassForm";
 import { CoordinatorForm } from "@/ui/CoordinatorPage/CoordinatorForm/CoordinatorForm";
 import { DisciplineForm } from "@/ui/CoordinatorPage/DisciplineForm/DisciplineForm";
