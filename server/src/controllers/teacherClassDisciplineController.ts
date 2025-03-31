@@ -70,14 +70,14 @@ class TeacherClassDisciplineController {
 
   async updateTeacherClassDiscipline(req: Request, res: Response) {
     const { id } = req.params;
-    const { teacher_id, class_id, discipline_id, time } = req.body;
+    const { teacher_id, class_id, discipline_id, time_id } = req.body;
     try {
       await TeacherClassDisciplineServices.updateTeacherClassDiscipline(
         Number(id),
         teacher_id,
         class_id,
         discipline_id,
-        time
+        time_id
       );
       res.status(200).json({ message: "Turma atualizada com sucesso" });
     } catch (error) {

@@ -23,14 +23,14 @@ class TeacherClassDisciplineServices {
     teacher_id: number,
     class_id: number,
     discipline_id: number,
-    time: string
+    time_id: number
   ) {
     try {
       const teacherClassDiscipline = await TeacherClassDiscipline.create({
         teacher_id,
         class_id,
         discipline_id,
-        time,
+        time_id,
       });
       return teacherClassDiscipline;
     } catch (error) {
@@ -54,7 +54,7 @@ class TeacherClassDisciplineServices {
     teacher_id: number,
     class_id: number,
     discipline_id: number,
-    time: string
+    time_id: number
   ) {
     try {
       const teacherClassDiscipline = await TeacherClassDiscipline.update(
@@ -63,7 +63,7 @@ class TeacherClassDisciplineServices {
           teacher_id,
           class_id,
           discipline_id,
-          time,
+          time_id,
         },
         { where: { id } }
       );

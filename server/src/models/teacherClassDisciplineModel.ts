@@ -39,7 +39,7 @@ TeacherClassDiscipline.init(
         key: "id",
       },
     },
-    time: {
+    time_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
