@@ -14,7 +14,7 @@ export const ScheduleProvider: React.FC<ScheduleProviderProps> = ({
   const [schedules, setSchedules] = React.useState<ScheduleProps[]>([]);
   const [scheduleId, setScheduleId] = React.useState<number>(0);
   const [selectedScheduleId, setSelectedScheduleId] =
-    React.useState<string>("");
+    React.useState<number>(0);
   const [initialTime, setInitialTime] = React.useState<string>("");
   const [endTime, setEndTime] = React.useState<string>("");
   const [edit, setEdit] = React.useState<boolean>(false);
@@ -43,7 +43,7 @@ export const ScheduleProvider: React.FC<ScheduleProviderProps> = ({
       .catch((error) => console.log(error));
   };
 
-  const fetchSchedulesById = async (id: string) => {
+  const fetchSchedulesById = async (id: number) => {
     await axios
       .get(`http://localhost:5000/api/schedule/${id}`)
       .then((res) => {
