@@ -2,6 +2,7 @@ import { useAttributionDisciplineContext } from "@/contexts/attributionDisciplin
 import { InputTeacher } from "./_components/inputTeacher";
 import { InputClass } from "./_components/inputClass";
 import { InputDiscipline } from "./_components/inputDiscipline";
+import { InputSchedule } from "./_components/inputSchedule";
 
 export function FormAttribution() {
   const { edit, addAttribution, updateAttribution } =
@@ -11,8 +12,8 @@ export function FormAttribution() {
       <InputTeacher />
       <InputClass />
       <InputDiscipline />
+      <InputSchedule />
 
-      
       <button type="submit">{edit ? "Atualizar" : "Cadastrar"}</button>
     </form>
   );
