@@ -75,14 +75,28 @@ export const ClassProvider: React.FC<ClassProviderProps> = ({ children }) => {
   const deleteClass = async () => {
     if (!nameClassId) return;
     const id = Number(nameClassId);
-    await axios.delete(`http://localhost:5000/api/class/${id}`).then(() => {
-      setNameClassId("");
-      resetEditState();
-      fetchClasses();
-      setGrade("");
-      setPeriod("");
-      setName("");
-    });
+    await axios
+      .delete(`http://localhost:5000/api/class/${id}`)
+      .then((res) => {
+        console.log("Classe deletada com sucesso", res.data);
+        setNameClassId("");
+        resetEditState();
+        fetchClasses();
+        setGrade("");
+        setPeriod("");
+        setName("");
+      })
+      .catch((error) => {
+        if (error instanceof axios.AxiosError && error.response) {
+          console.log("Erro na requisição", {
+            status: error.response.status,
+            data: error.response.data.error,
+            url: error.config?.url,
+          });
+        } else {
+          console.log("Erro desconhecido", error);
+        }
+      });
   };
 
   const editClass = async () => {
