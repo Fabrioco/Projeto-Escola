@@ -9,10 +9,6 @@ export type StudentContextType = {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
-  classId: string;
-  setClassId: React.Dispatch<React.SetStateAction<string>>;
-  period: string;
-  setPeriod: React.Dispatch<React.SetStateAction<string>>;
   students: UserProps[];
   setStudents: React.Dispatch<React.SetStateAction<UserProps[]>>;
   classesList: ClassesProps[];
