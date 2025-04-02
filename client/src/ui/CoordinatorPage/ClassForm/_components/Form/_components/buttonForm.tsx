@@ -8,7 +8,7 @@ type ButtonFormProps = {
 export function ButtonForm({ children, onclick }: ButtonFormProps) {
   return (
     <button
-      type="submit"
+      type="button"
       onClick={onclick}
       className={`${
         children?.toString().startsWith("Remover") &&
