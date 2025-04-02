@@ -27,19 +27,6 @@ class StudentClassServices {
     }
   }
 
-  static async getClassesByStudentId(student_id: number) {
-    try {
-      const studentClasses = await StudentClass.findAll({
-        where: {
-          student_id,
-        },
-      });
-      return studentClasses;
-    } catch (error) {
-      return error;
-    }
-  }
-
   static async getStudentsByClassId(class_id: number) {
     try {
       const studentClasses = await StudentClass.findAll({
