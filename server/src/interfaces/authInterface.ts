@@ -8,8 +8,6 @@ export interface SignUpStudentProps {
   name: string;
   email: string;
   password: string;
-  class_id: number;
-  period: string;
 }
 
 export interface SignUpTeacherProps {

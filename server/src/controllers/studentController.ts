@@ -42,8 +42,6 @@ class StudentController {
         name,
         email,
         password,
-        class_id,
-        period,
       });
       return res.status(201).json(student);
     } catch (error) {

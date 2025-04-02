@@ -45,8 +45,6 @@ class AuthServices {
     name,
     email,
     password,
-    class_id,
-    period,
   }: SignUpStudentProps) {
     const verifyEmail = await Student.findOne({ where: { email } });
     if (verifyEmail) {
@@ -59,8 +57,6 @@ class AuthServices {
       name,
       email,
       password: hashedPassword,
-      class_id,
-      period,
     });
     return student;
   }
