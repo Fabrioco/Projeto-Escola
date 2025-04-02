@@ -26,5 +26,13 @@ class StudentClassServices {
       return error;
     }
   }
+
+  static async getClassesByStudentId(student_id: number) {
+    try {
+      const studentClasses = await StudentClass.findAll({
+        where: {
+          student_id,
+        },
+      });
 }
 export default StudentClassServices;
