@@ -7,8 +7,6 @@ class Student extends Model {
   declare name: string;
   declare email: string;
   declare password: string;
-  declare class_id: number;
-  declare period: "Manhã" | "Tarde" | "Noite";
 }
 
 Student.init(
@@ -31,18 +29,6 @@ Student.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    class_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: "class",
-        key: "id",
-      },
-    },
-    period: {
-      type: DataTypes.ENUM("Manhã", "Tarde", "Noite"),
-      allowNull: false,
-    },
   },
   {
     sequelize: database,
@@ -50,9 +36,5 @@ Student.init(
     timestamps: false,
   }
 );
-
-Student.belongsTo(Class, {
-  foreignKey: "class_id",
-});
 
 export default Student;
