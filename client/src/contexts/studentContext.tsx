@@ -17,8 +17,6 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
   const [nameStudent, setNameStudent] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
-  const [classId, setClassId] = React.useState<string>("");
-  const [period, setPeriod] = React.useState<string>("");
 
   const [students, setStudents] = React.useState<UserProps[]>([]);
   const [classesList, setClassesList] = React.useState<ClassesProps[]>([]);
@@ -26,7 +24,7 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
   const [userId, setUserId] = React.useState<number>(0);
 
   const addStudent = async () => {
-    if (!nameStudent || !email || !password || !classId || !period) {
+    if (!nameStudent || !email || !password) {
       alert("Preencha todos os campos");
       return;
     }
@@ -36,8 +34,6 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
         name: nameStudent,
         email,
         password,
-        class_id: classId,
-        period,
       })
       .then(() => {
         getAllStudents();
@@ -103,8 +99,6 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
       setNameStudent(res.data.name);
       setEmail(res.data.email);
       setPassword(res.data.password);
-      setClassId(res.data.class_id ? res.data.class_id : "");
-      setPeriod(res.data.period);
     });
   };
 
@@ -114,8 +108,7 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
         name: nameStudent,
         email,
         password,
-        class_id: classId,
-        period,
+        
       })
       .then(() => {
         getAllStudents();
@@ -159,8 +152,7 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
     setNameStudent("");
     setEmail("");
     setPassword("");
-    setClassId("");
-    setPeriod("");
+    
     setEdit(false);
   };
 
@@ -185,10 +177,6 @@ export const StudentProvider: React.FC<StudentProviderType> = ({
         setEmail,
         password,
         setPassword,
-        classId,
-        setClassId,
-        period,
-        setPeriod,
         students,
         setStudents,
         classesList,
