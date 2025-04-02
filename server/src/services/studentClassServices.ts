@@ -34,5 +34,23 @@ class StudentClassServices {
           student_id,
         },
       });
+      return studentClasses;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async getStudentsByClassId(class_id: number) {
+    try {
+      const studentClasses = await StudentClass.findAll({
+        where: {
+          class_id,
+        },
+      });
+      return studentClasses;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export default StudentClassServices;
