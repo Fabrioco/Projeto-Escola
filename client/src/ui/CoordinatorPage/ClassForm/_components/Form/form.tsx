@@ -8,7 +8,7 @@ import { Trash, ArrowClockwise, Plus } from "@phosphor-icons/react/dist/ssr";
 export function Form() {
   const { edit, addClass, editClass, deleteClass } = useClassContext();
   return (
-    <form onSubmit={addClass} className={`flex flex-col gap-2 w-11/12 p-2`}>
+    <form className={`flex flex-col gap-2 w-11/12 p-2`}>
       <InputNameClass />
 
       <InputGradeClass />
