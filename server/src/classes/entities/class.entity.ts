@@ -1,1 +1,16 @@
-export class Class {}
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity()
+export class Class {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  grade: number;
+
+  @Column()
+  period: number;
+}
