@@ -53,6 +53,7 @@ export class ClassesService {
   }
 
   async remove(id: number) {
+    await this.studentRepository.update({ class_id: null }, { where: { class_id: id } });
     return await this.classRepository.delete(id);
   }
 }
