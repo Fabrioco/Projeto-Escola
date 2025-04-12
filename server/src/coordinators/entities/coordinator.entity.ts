@@ -14,6 +14,6 @@ export class Coordinator {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: "coordinator" })
   role: string;
 }
