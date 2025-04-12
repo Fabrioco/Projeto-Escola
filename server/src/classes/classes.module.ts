@@ -4,10 +4,11 @@ import { ClassesController } from "./classes.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Class } from "./entities/class.entity";
 import { JwtModule } from "@nestjs/jwt";
+import { Student } from "src/students/entities/student.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Class]),
+    TypeOrmModule.forFeature([Class, Student]),
     JwtModule.register({
       secret: "secret",
       signOptions: { expiresIn: "1d" },
