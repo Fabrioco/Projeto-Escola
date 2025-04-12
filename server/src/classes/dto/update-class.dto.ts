@@ -3,6 +3,6 @@ import { CreateClassDto } from "./create-class.dto";
 
 export class UpdateClassDto extends PartialType(CreateClassDto) {
   name?: string | undefined;
-  grade?: number | undefined;
-  period?: number | undefined;
+  grade?: string | undefined;
+  period?: string | undefined;
 }

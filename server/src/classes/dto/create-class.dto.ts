@@ -1,5 +1,5 @@
 export class CreateClassDto {
   name: string;
-  grade: number;
-  period: number;
+  grade: string;
+  period: string;
 }

@@ -9,8 +9,8 @@ export class Class {
   name: string;
 
   @Column()
-  grade: number;
+  grade: string;
 
   @Column()
-  period: number;
+  period: string;
 }
