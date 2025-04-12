@@ -40,19 +40,19 @@ export class ClassesService {
     }
   }
 
-  findClassById(id: number) {
-    return this.classRepository.findOne({ where: { id } });
+  async findClassById(id: number) {
+    return await this.classRepository.findOne({ where: { id } });
   }
 
-  findAllStudentByClassId(id: number) {
-    return this.studentRepository.find({ where: { class_id: id } });
+  async findAllStudentByClassId(id: number) {
+    return await this.studentRepository.find({ where: { class_id: id } });
   }
 
-  updateClass(id: number, updateClassDto: UpdateClassDto) {
-    return this.classRepository.update(id, updateClassDto);
+  async updateClass(id: number, updateClassDto: UpdateClassDto) {
+    return await this.classRepository.update(id, updateClassDto);
   }
 
-  remove(id: number) {
-    return this.classRepository.delete(id);
+  async remove(id: number) {
+    return await this.classRepository.delete(id);
   }
 }
