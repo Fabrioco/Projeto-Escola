@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Student } from "src/students/entities/student.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Class {
@@ -13,4 +14,7 @@ export class Class {
 
   @Column()
   period: string;
+
+  @ManyToOne(() => Student, student => student.class_id)
+  student: Student;
 }
