@@ -4,12 +4,16 @@ import { UpdateClassDto } from "./dto/update-class.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Class } from "./entities/class.entity";
 import { Repository } from "typeorm";
+import { Student } from "src/students/entities/student.entity";
 
 @Injectable()
 export class ClassesService {
   constructor(
     @InjectRepository(Class)
     private classRepository: Repository<Class>,
+
+    @InjectRepository(Student)
+    private studentRepository: Repository<Student>,
   ) {}
   async create(createClassDto: CreateClassDto) {
     try {
@@ -38,6 +42,10 @@ export class ClassesService {
 
   findClassById(id: number) {
     return this.classRepository.findOne({ where: { id } });
+  }
+
+  findAllStudentByClassId(id: number) {
+    return this.studentRepository.find({ where: { class_id: id } });
   }
 
   update(id: number, updateClassDto: UpdateClassDto) {

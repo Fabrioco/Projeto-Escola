@@ -27,6 +27,11 @@ export class ClassesController {
     return this.classesService.findClassById(+id);
   }
 
+  @Get(":id/students")
+  findAllStudentByClassId(@Param("id") id: string) {
+    return this.classesService.findAllStudentByClassId(+id);
+  }
+
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateClassDto: UpdateClassDto) {
     return this.classesService.update(+id, updateClassDto);
