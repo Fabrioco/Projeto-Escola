@@ -42,8 +42,9 @@ export class AuthService {
     }
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  findUserByRoleAndId({ role, id }: { role: string; id: number }) {
+    if (role === "student") return this.studentRepository.findOne({ where: { id } });
+    if (role === "coordinator") return this.authRepository.findOne({ where: { id } });
   }
 
   findOne(id: number) {
