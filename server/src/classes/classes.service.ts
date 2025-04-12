@@ -48,11 +48,11 @@ export class ClassesService {
     return this.studentRepository.find({ where: { class_id: id } });
   }
 
-  update(id: number, updateClassDto: UpdateClassDto) {
-    return `This action updates a #${id} class`;
+  updateClass(id: number, updateClassDto: UpdateClassDto) {
+    return this.classRepository.update(id, updateClassDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} class`;
+    return this.classRepository.delete(id);
   }
 }
