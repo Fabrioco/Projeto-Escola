@@ -19,7 +19,7 @@ export class Student {
   role: string;
 
   @Column()
-  class_id: number;
+  class_id: number | null;
 
   @OneToMany(() => Class, classs => classs.student)
   class: Class[];
