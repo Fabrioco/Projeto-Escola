@@ -27,8 +27,13 @@ export class ClassesService {
     }
   }
 
-  findAll() {
-    return `This action returns all classes`;
+  async findAll() {
+    try {
+      const classes = await this.classRepository.find();
+      return classes;
+    } catch (error) {
+      return error;
+    }
   }
 
   findOne(id: number) {
