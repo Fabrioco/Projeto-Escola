@@ -36,8 +36,8 @@ export class ClassesService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} class`;
+  findClassById(id: number) {
+    return this.classRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateClassDto: UpdateClassDto) {
