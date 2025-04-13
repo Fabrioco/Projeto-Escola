@@ -1,26 +1,71 @@
-import { Injectable } from '@nestjs/common';
-import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.dto';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { CreateClassDto } from "./dto/create-class.dto";
+import { UpdateClassDto } from "./dto/update-class.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Class } from "./entities/class.entity";
+import { Repository } from "typeorm";
+import { Student } from "src/students/entities/student.entity";
 
 @Injectable()
 export class ClassesService {
-  create(createClassDto: CreateClassDto) {
-    return 'This action adds a new class';
+  constructor(
+    @InjectRepository(Class)
+    private classRepository: Repository<Class>,
+
+    @InjectRepository(Student)
+    private studentRepository: Repository<Student>,
+  ) {}
+  async create(createClassDto: CreateClassDto) {
+    try {
+      const verifyClass = await this.classRepository.findOne({ where: { name: createClassDto.name, grade: createClassDto.grade, period: createClassDto.period } });
+      if (verifyClass) {
+        throw new ConflictException("Turma já cadastrada");
+      }
+
+      const newClass = await this.classRepository.create(createClassDto);
+      await this.classRepository.save(newClass);
+
+      return "Turma cadastrada com sucesso";
+    } catch (error) {
+      throw new ConflictException(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all classes`;
+  async findAll() {
+    try {
+      const classes = await this.classRepository.find();
+      return classes;
+    } catch (error) {
+      return error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} class`;
+  async findClassById(id: number) {
+    return await this.classRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateClassDto: UpdateClassDto) {
-    return `This action updates a #${id} class`;
+  async findAllStudentByClassId(id: number) {
+    return await this.studentRepository.find({ where: { class_id: id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} class`;
+  async updateClass(id: number, updateClassDto: UpdateClassDto) {
+    return await this.classRepository.update(id, updateClassDto);
+  }
+
+  async remove(id: number) {
+    try {
+      const classExists = await this.classRepository.findOneBy({ id });
+
+      if (!classExists) {
+        throw new NotFoundException("Turma não encontrada");
+      }
+
+      return this.classRepository.manager.transaction(async manager => {
+        await manager.update(Student, { class_id: id }, { class_id: 0 });
+        await manager.delete(Class, { id });
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

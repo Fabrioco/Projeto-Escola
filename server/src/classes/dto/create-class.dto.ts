@@ -1,1 +1,5 @@
-export class CreateClassDto {}
+export class CreateClassDto {
+  name: string;
+  grade: string;
+  period: string;
+}

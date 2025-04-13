@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Class } from "src/classes/entities/class.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Student {
@@ -15,5 +16,11 @@ export class Student {
   password: string;
 
   @Column()
-  class_id: number;
+  role: string;
+
+  @Column()
+  class_id: number | null;
+
+  @OneToMany(() => Class, classs => classs.student)
+  class: Class[];
 }
