@@ -1,10 +1,14 @@
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from "@nestjs/common";
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException, ForbiddenException } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly reflector: Reflector,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
@@ -22,14 +26,23 @@ export class AuthGuard implements CanActivate {
       }
 
       request["user"] = payload;
+
+      const requiredRoles = this.reflector.get<string[]>("roles", context.getHandler()) || this.reflector.get<string[]>("roles", context.getClass());
+
+      if (requiredRoles && !requiredRoles.includes(payload.role)) {
+        throw new ForbiddenException("Acesso negado: permissão insuficiente");
+      }
+
+      return true;
     } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
       throw new UnauthorizedException({
         message: "Token inválido ou expirado",
         error: error.message,
       });
     }
-
-    return true;
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
