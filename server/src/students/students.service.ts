@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
@@ -34,15 +34,23 @@ export class StudentsService {
     return `This action returns all students`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} student`;
+  async findOne(id: number) {
+    try {
+      return await this.UserRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   update(id: number, updateStudentDto: UpdateStudentDto) {
     return `This action updates a #${id} student`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: number) {
+    try {
+      return await this.UserRepository.delete({ id });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }
