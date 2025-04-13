@@ -3,13 +3,17 @@ import { CoordinatorsService } from "./coordinators.service";
 import { CreateCoordinatorDto } from "./dto/create-coordinator.dto";
 import { UpdateCoordinatorDto } from "./dto/update-coordinator.dto";
 import { AuthGuard } from "src/auth/auth.guard";
+import { Roles } from "src/auth/roles.decorator";
+import { RolesGuard } from "src/auth/roles.guard";
 
 @Controller("coordinators")
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
+@Roles("coordinator")
 export class CoordinatorsController {
   constructor(private readonly coordinatorsService: CoordinatorsService) {}
 
   @Post()
+  @Roles("coordinator")
   create(@Body() createCoordinatorDto: CreateCoordinatorDto) {
     return this.coordinatorsService.create(createCoordinatorDto);
   }
