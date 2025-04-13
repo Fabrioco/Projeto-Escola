@@ -1,5 +1,5 @@
 import { Class } from "src/classes/entities/class.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Student {
@@ -19,8 +19,8 @@ export class Student {
   role: string;
 
   @Column()
-  class_id: number | null;
+  class_id: number;
 
-  @OneToMany(() => Class, classs => classs.student)
-  class: Class[];
+  @ManyToOne(() => Class, classEntity => classEntity.students)
+  class: Class;
 }
