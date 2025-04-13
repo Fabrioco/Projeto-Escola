@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateClassDto } from "./dto/create-class.dto";
 import { UpdateClassDto } from "./dto/update-class.dto";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -53,7 +53,19 @@ export class ClassesService {
   }
 
   async remove(id: number) {
-    await this.studentRepository.update({ class_id: null }, { where: { class_id: id } });
-    return await this.classRepository.delete(id);
+    try {
+      const classExists = await this.classRepository.findOneBy({ id });
+
+      if (!classExists) {
+        throw new NotFoundException("Turma não encontrada");
+      }
+
+      return this.classRepository.manager.transaction(async manager => {
+        await manager.update(Student, { class_id: id }, { class_id: 0 });
+        await manager.delete(Class, { id });
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }
