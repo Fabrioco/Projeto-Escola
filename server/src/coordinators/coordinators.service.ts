@@ -34,8 +34,8 @@ export class CoordinatorsService {
     return `This action returns all coordinators`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} coordinator`;
+  async findOne(id: number) {
+    return await this.coordinatorRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateCoordinatorDto: UpdateCoordinatorDto) {
