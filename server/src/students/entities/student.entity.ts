@@ -18,9 +18,10 @@ export class Student {
   @Column()
   role: string;
 
-  @Column()
-  class_id: number;
-
   @ManyToOne(() => Class, classEntity => classEntity.students)
-  class: Class;
+  @JoinColumn({ name: "class_id" })
+  class: Class | null;
+
+  @Column({ nullable: true })
+  class_id?: number | null;
 }

@@ -30,8 +30,13 @@ export class StudentsService {
       throw new ConflictException(error);
     }
   }
-  findAll() {
-    return `This action returns all students`;
+
+  async findAll() {
+    try {
+      return await this.UserRepository.find();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   async findOne(id: number) {
@@ -42,8 +47,12 @@ export class StudentsService {
     }
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+    try {
+      return await this.UserRepository.update(id, updateStudentDto);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   async remove(id: number) {

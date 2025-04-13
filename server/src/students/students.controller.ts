@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { StudentsService } from "./students.service";
 import { CreateStudentDto } from "./dto/create-student.dto";
 import { UpdateStudentDto } from "./dto/update-student.dto";
@@ -11,7 +11,17 @@ export class StudentsController {
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentsService.create(createStudentDto);
+    try {
+      if (createStudentDto.role !== "student") {
+        throw new ConflictException("Cargo inválido");
+      }
+      if (!createStudentDto.name || !createStudentDto.email || !createStudentDto.password || !createStudentDto.class_id) {
+        throw new ConflictException("Preencha todos os campos");
+      }
+      return this.studentsService.create(createStudentDto);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   @Get()
