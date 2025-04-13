@@ -61,7 +61,7 @@ export class ClassesService {
       }
 
       return this.classRepository.manager.transaction(async manager => {
-        await manager.update(Student, { class_id: id }, { class_id: 0 });
+        await manager.update(Student, { class_id: id }, { class_id: null });
         await manager.delete(Class, { id });
       });
     } catch (error) {
