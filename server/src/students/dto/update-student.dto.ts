@@ -6,4 +6,5 @@ export class UpdateStudentDto extends PartialType(CreateStudentDto) {
   email?: string | undefined;
   password?: string | undefined;
   class_id?: number | undefined;
+  role?: string | undefined;
 }
