@@ -25,11 +25,13 @@ export class StudentsController {
   }
 
   @Get()
+  @Roles("coordinator")
   findAll() {
     return this.studentsService.findAll();
   }
 
   @Get(":id")
+  @Roles("coordinator")
   findOne(@Param("id") id: string) {
     return this.studentsService.findOne(+id);
   }
