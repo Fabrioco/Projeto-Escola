@@ -8,11 +8,11 @@ import { Roles } from "src/auth/roles.decorator";
 
 @Controller("students")
 @UseGuards(AuthGuard, RolesGuard)
-@Roles("coordinator")
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Post()
+  @Roles("coordinator")
   create(@Body() createStudentDto: CreateStudentDto) {
     try {
       if (!createStudentDto.name || !createStudentDto.email || !createStudentDto.password || !createStudentDto.class_id) {
@@ -35,11 +35,13 @@ export class StudentsController {
   }
 
   @Patch(":id")
+  @Roles("coordinator")
   update(@Param("id") id: string, @Body() updateStudentDto: UpdateStudentDto) {
     return this.studentsService.update(+id, updateStudentDto);
   }
 
   @Delete(":id")
+  @Roles("coordinator")
   remove(@Param("id") id: string) {
     return this.studentsService.remove(+id);
   }
