@@ -3,9 +3,12 @@ import { StudentsService } from "./students.service";
 import { CreateStudentDto } from "./dto/create-student.dto";
 import { UpdateStudentDto } from "./dto/update-student.dto";
 import { AuthGuard } from "src/auth/auth.guard";
+import { RolesGuard } from "src/auth/roles.guard";
+import { Roles } from "src/auth/roles.decorator";
 
 @Controller("students")
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
+@Roles("coordinator")
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
