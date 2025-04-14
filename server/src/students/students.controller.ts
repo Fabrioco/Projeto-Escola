@@ -12,9 +12,6 @@ export class StudentsController {
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
     try {
-      if (createStudentDto.role !== "student") {
-        throw new ConflictException("Cargo inválido");
-      }
       if (!createStudentDto.name || !createStudentDto.email || !createStudentDto.password || !createStudentDto.class_id) {
         throw new ConflictException("Preencha todos os campos");
       }
