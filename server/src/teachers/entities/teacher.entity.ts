@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Attribution } from "src/attribution/entities/attribution.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Teacher {
@@ -16,4 +17,7 @@ export class Teacher {
 
   @Column({ default: "teacher" })
   role: string;
+
+  @OneToMany(() => Attribution, attribution => attribution.teacher)
+  attributions: Attribution[];
 }

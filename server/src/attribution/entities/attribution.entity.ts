@@ -1,4 +1,5 @@
 import { Schedule } from "src/schedules/entities/schedule.entity";
+import { Teacher } from "src/teachers/entities/teacher.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -12,4 +13,11 @@ export class Attribution {
 
   @Column()
   schedule_id: number;
+
+  @ManyToOne(() => Teacher, teacher => teacher.attributions)
+  @JoinColumn({ name: "teacher_id" })
+  teacher: Teacher;
+
+  @Column()
+  teacher_id: number;
 }
