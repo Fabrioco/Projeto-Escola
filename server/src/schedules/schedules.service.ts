@@ -35,8 +35,16 @@ export class SchedulesService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  async findOne(id: number): Promise<Schedule> {
+    try {
+      const schedule = await this.scheduleRepository.findOne({ where: { id } });
+      if (!schedule) {
+        throw new NotFoundException("Horário nao encontrado");
+      }
+      return schedule;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   update(id: number, updateScheduleDto: UpdateScheduleDto) {
