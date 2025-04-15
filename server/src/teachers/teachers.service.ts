@@ -8,7 +8,7 @@ import { Repository } from "typeorm";
 @Injectable()
 export class TeachersService {
   constructor(@InjectRepository(Teacher) private teacherRepository: Repository<Teacher>) {}
-  async create(createTeacherDto: CreateTeacherDto) {
+  async create(createTeacherDto: CreateTeacherDto): Promise<string> {
     try {
       const findEmail = await this.teacherRepository.findOne({ where: { email: createTeacherDto.email } });
       if (findEmail) {
@@ -22,7 +22,7 @@ export class TeachersService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<Teacher[]> {
     try {
       return await this.teacherRepository.find();
     } catch (error) {
@@ -30,7 +30,7 @@ export class TeachersService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Teacher> {
     try {
       const teacher = await this.teacherRepository.findOne({ where: { id } });
       if (!teacher) {
@@ -42,7 +42,7 @@ export class TeachersService {
     }
   }
 
-  async update(id: number, updateTeacherDto: UpdateTeacherDto) {
+  async update(id: number, updateTeacherDto: UpdateTeacherDto): Promise<string> {
     try {
       const findEmail = await this.teacherRepository.findOne({ where: { email: updateTeacherDto.email } });
       if (!findEmail) {
@@ -57,7 +57,7 @@ export class TeachersService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<string> {
     try {
       const result = await this.teacherRepository.delete(id);
       if (result.affected === 0) {
