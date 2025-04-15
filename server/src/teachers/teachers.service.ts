@@ -32,7 +32,11 @@ export class TeachersService {
 
   async findOne(id: number) {
     try {
-      return await this.teacherRepository.findOne({ where: { id } });
+      const teacher = await this.teacherRepository.findOne({ where: { id } });
+      if (!teacher) {
+        throw new NotFoundException("Professor não encontrado");
+      }
+      return teacher;
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
