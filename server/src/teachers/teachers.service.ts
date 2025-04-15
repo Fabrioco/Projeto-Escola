@@ -22,12 +22,20 @@ export class TeachersService {
     }
   }
 
-  findAll() {
-    return `This action returns all teachers`;
+  async findAll() {
+    try {
+      return await this.teacherRepository.find();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} teacher`;
+  async findOne(id: number) {
+    try {
+      return await this.teacherRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   update(id: number, updateTeacherDto: UpdateTeacherDto) {
