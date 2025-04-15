@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateDisciplineDto } from "./dto/create-discipline.dto";
 import { UpdateDisciplineDto } from "./dto/update-discipline.dto";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -38,8 +38,14 @@ export class DisciplineService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} discipline`;
+  async findOne(id: number): Promise<Discipline> {
+    try {
+      const discipline = await this.disciplineRepository.findOneBy({ id });
+      if (!discipline) throw new NotFoundException("Disciplina nao encontrada");
+      return discipline;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
