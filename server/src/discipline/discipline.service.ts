@@ -41,7 +41,7 @@ export class DisciplineService {
   async findOne(id: number): Promise<Discipline> {
     try {
       const discipline = await this.disciplineRepository.findOneBy({ id });
-      if (!discipline) throw new NotFoundException("Disciplina nao encontrada");
+      if (!discipline) throw new NotFoundException("Disciplina não encontrada");
       return discipline;
     } catch (error) {
       throw new InternalServerErrorException(error);
@@ -62,7 +62,17 @@ export class DisciplineService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} discipline`;
+  async remove(id: number): Promise<string> {
+    try {
+      const findDiscipline = await this.disciplineRepository.findOneBy({ id });
+      if (!findDiscipline) throw new NotFoundException("Disciplina não encontrada");
+      await this.disciplineRepository.delete(id);
+      return "Disciplina excluída com sucesso";
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(error);
+    }
   }
 }
