@@ -52,6 +52,7 @@ export class TeachersService {
       if (!findEmail) {
         throw new ConflictException("Professor não encontrado");
       }
+      await this.teacherRepository.update(id, updateTeacherDto);
       return "Professor atualizado com sucesso";
     } catch (error) {
       if (error instanceof NotFoundException) {
