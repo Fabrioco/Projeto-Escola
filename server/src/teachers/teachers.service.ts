@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateTeacherDto } from "./dto/create-teacher.dto";
 import { UpdateTeacherDto } from "./dto/update-teacher.dto";
 import { Teacher } from "./entities/teacher.entity";
@@ -40,10 +40,16 @@ export class TeachersService {
 
   async update(id: number, updateTeacherDto: UpdateTeacherDto) {
     try {
-      await this.teacherRepository.update(id, updateTeacherDto);
-      return "Atualizado com sucesso";
+      const findEmail = await this.teacherRepository.findOne({ where: { email: updateTeacherDto.email } });
+      if (!findEmail) {
+        throw new ConflictException("Professor não encontrado");
+      }
+      return "Professor atualizado com sucesso";
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Falha ao atualizar o professor", { cause: error, description: "Verifique os dados e tente novamente" });
     }
   }
 
