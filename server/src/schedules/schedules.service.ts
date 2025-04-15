@@ -64,7 +64,18 @@ export class SchedulesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} schedule`;
+  async remove(id: number): Promise<string> {
+    try {
+      const result = await this.scheduleRepository.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException("Horário nao encontrado");
+      }
+      return "Horário removido com sucesso";
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Falha ao remover o horário", { cause: error, description: "Verifique os dados e tente novamente" });
+    }
   }
 }
