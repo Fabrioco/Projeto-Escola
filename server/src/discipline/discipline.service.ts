@@ -48,8 +48,18 @@ export class DisciplineService {
     }
   }
 
-  update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
-    return `This action updates a #${id} discipline`;
+  async update(id: number, updateDisciplineDto: UpdateDisciplineDto): Promise<string> {
+    try {
+      const findDiscipline = await this.disciplineRepository.findOneBy({ id });
+      if (!findDiscipline) throw new NotFoundException("Disciplina não encontrada");
+      await this.disciplineRepository.update(id, updateDisciplineDto);
+      return "Disciplina atualizada com sucesso";
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(error);
+    }
   }
 
   remove(id: number) {
