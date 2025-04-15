@@ -1,3 +1,4 @@
+import * as bcrypt from "bcrypt";
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { CreateTeacherDto } from "./dto/create-teacher.dto";
 import { UpdateTeacherDto } from "./dto/update-teacher.dto";
@@ -14,7 +15,10 @@ export class TeachersService {
       if (findEmail) {
         throw new ConflictException("Email já cadastrado");
       }
-      const teacher = await this.teacherRepository.create(createTeacherDto);
+
+      const hashedPassword = await bcrypt.hash(createTeacherDto.password, 10);
+
+      const teacher = await this.teacherRepository.create({ ...createTeacherDto, password: hashedPassword });
       await this.teacherRepository.save(teacher);
       return "Cadastro realizado com sucesso";
     } catch (error) {
