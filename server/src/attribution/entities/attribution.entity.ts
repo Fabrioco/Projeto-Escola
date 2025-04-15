@@ -1,3 +1,4 @@
+import { Discipline } from "src/discipline/entities/discipline.entity";
 import { Schedule } from "src/schedules/entities/schedule.entity";
 import { Teacher } from "src/teachers/entities/teacher.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -20,4 +21,8 @@ export class Attribution {
 
   @Column()
   teacher_id: number;
+
+  @ManyToOne(() => Discipline, discipline => discipline.attributions)
+  @JoinColumn({ name: "discipline_id" })
+  discipline: Discipline;
 }
