@@ -8,6 +8,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { CoordinatorsModule } from './coordinators/coordinators.module';
 import { AuthModule } from './auth/auth.module';
 import { TeachersModule } from './teachers/teachers.module';
+import { AttributionModule } from './attribution/attribution.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TeachersModule } from './teachers/teachers.module';
     CoordinatorsModule,
     AuthModule,
     TeachersModule,
+    AttributionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
