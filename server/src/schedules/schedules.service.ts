@@ -27,8 +27,12 @@ export class SchedulesService {
     }
   }
 
-  findAll() {
-    return `This action returns all schedules`;
+  async findAll(): Promise<Schedule[]> {
+    try {
+      return await this.scheduleRepository.find();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   findOne(id: number) {
