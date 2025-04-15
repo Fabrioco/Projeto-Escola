@@ -30,8 +30,12 @@ export class DisciplineService {
     }
   }
 
-  findAll() {
-    return `This action returns all discipline`;
+  async findAll(): Promise<Discipline[]> {
+    try {
+      return await this.disciplineRepository.find();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   findOne(id: number) {
