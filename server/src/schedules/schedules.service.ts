@@ -47,8 +47,21 @@ export class SchedulesService {
     }
   }
 
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  async update(id: number, updateScheduleDto: UpdateScheduleDto): Promise<string> {
+    try {
+      const schedule = await this.scheduleRepository.findOne({ where: { id } });
+      if (!schedule) {
+        throw new NotFoundException("Horário nao encontrado");
+      }
+
+      await this.scheduleRepository.update(id, updateScheduleDto);
+      return "Horário atualizado com sucesso";
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Falha ao atualizar o horário", { cause: error, description: "Verifique os dados e tente novamente" });
+    }
   }
 
   remove(id: number) {
