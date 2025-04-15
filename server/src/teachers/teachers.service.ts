@@ -53,7 +53,18 @@ export class TeachersService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} teacher`;
+  async remove(id: number) {
+    try {
+      const result = await this.teacherRepository.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException("Professor nao encontrado");
+      }
+      return "Professor removido com sucesso";
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Falha ao remover o professor", { cause: error, description: "Verifique os dados e tente novamente" });
+    }
   }
 }
