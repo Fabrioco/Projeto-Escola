@@ -1,1 +1,4 @@
-export class CreateScheduleDto {}
+export class CreateScheduleDto {
+  startTime: string;
+  endTime: string;
+}
