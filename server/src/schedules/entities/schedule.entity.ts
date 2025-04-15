@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Attribution } from "src/attribution/entities/attribution.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Schedule {
@@ -10,4 +11,7 @@ export class Schedule {
 
   @Column()
   endTime: string;
+
+  @OneToMany(() => Attribution, attribution => attribution.schedule)
+  attributions: Attribution[];
 }
