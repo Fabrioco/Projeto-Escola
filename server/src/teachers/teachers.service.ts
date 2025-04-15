@@ -38,8 +38,13 @@ export class TeachersService {
     }
   }
 
-  update(id: number, updateTeacherDto: UpdateTeacherDto) {
-    return `This action updates a #${id} teacher`;
+  async update(id: number, updateTeacherDto: UpdateTeacherDto) {
+    try {
+      await this.teacherRepository.update(id, updateTeacherDto);
+      return "Atualizado com sucesso";
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   remove(id: number) {
