@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { AttributionModule } from './attribution/attribution.module';
 import { SchedulesModule } from './schedules/schedules.module';
+import { DisciplineModule } from './discipline/discipline.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { SchedulesModule } from './schedules/schedules.module';
     TeachersModule,
     AttributionModule,
     SchedulesModule,
+    DisciplineModule,
   ],
   controllers: [AppController],
   providers: [AppService],
