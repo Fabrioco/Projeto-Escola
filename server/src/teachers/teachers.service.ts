@@ -1,11 +1,25 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTeacherDto } from './dto/create-teacher.dto';
-import { UpdateTeacherDto } from './dto/update-teacher.dto';
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { CreateTeacherDto } from "./dto/create-teacher.dto";
+import { UpdateTeacherDto } from "./dto/update-teacher.dto";
+import { Teacher } from "./entities/teacher.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class TeachersService {
-  create(createTeacherDto: CreateTeacherDto) {
-    return 'This action adds a new teacher';
+  constructor(@InjectRepository(Teacher) private teacherRepository: Repository<Teacher>) {}
+  async create(createTeacherDto: CreateTeacherDto) {
+    try {
+      const findEmail = await this.teacherRepository.findOne({ where: { email: createTeacherDto.email } });
+      if (findEmail) {
+        throw new ConflictException("Email já cadastrado");
+      }
+      const teacher = await this.teacherRepository.create(createTeacherDto);
+      await this.teacherRepository.save(teacher);
+      return "Cadastro realizado com sucesso";
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   findAll() {
