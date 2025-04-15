@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ConflictException } from "@nestjs/common";
 import { SchedulesService } from "./schedules.service";
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { UpdateScheduleDto } from "./dto/update-schedule.dto";
@@ -14,6 +14,7 @@ export class SchedulesController {
 
   @Post()
   create(@Body() createScheduleDto: CreateScheduleDto) {
+    if (!createScheduleDto.startTime || !createScheduleDto.endTime) throw new ConflictException("Preencha todos os campos");
     return this.schedulesService.create(createScheduleDto);
   }
 
@@ -24,6 +25,7 @@ export class SchedulesController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
+    if (!id) throw new ConflictException("O campo id nao pode ser vazio");
     return this.schedulesService.findOne(+id);
   }
 
@@ -34,6 +36,7 @@ export class SchedulesController {
 
   @Delete(":id")
   remove(@Param("id") id: string) {
+    if (!id) throw new ConflictException("O campo id nao pode ser vazio");
     return this.schedulesService.remove(+id);
   }
 }
