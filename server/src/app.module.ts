@@ -11,6 +11,7 @@ import { TeachersModule } from './teachers/teachers.module';
 import { AttributionModule } from './attribution/attribution.module';
 import { SchedulesModule } from './schedules/schedules.module';
 import { DisciplineModule } from './discipline/discipline.module';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { DisciplineModule } from './discipline/discipline.module';
     AttributionModule,
     SchedulesModule,
     DisciplineModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
