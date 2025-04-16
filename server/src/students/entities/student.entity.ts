@@ -1,4 +1,5 @@
 import { Class } from "src/classes/entities/class.entity";
+import { Note } from "src/notes/entities/note.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -24,4 +25,7 @@ export class Student {
 
   @Column({ nullable: true })
   class_id?: number | null;
+
+  @OneToMany(() => Note, note => note.students)
+  notes: Note[];
 }
