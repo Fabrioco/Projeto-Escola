@@ -8,7 +8,7 @@ import { Roles } from "src/auth/roles.decorator";
 
 @Controller("schedules")
 @UseGuards(AuthGuard, RolesGuard)
-@Roles("admin")
+@Roles("coordinator")
 export class SchedulesController {
   constructor(private readonly schedulesService: SchedulesService) {}
 
