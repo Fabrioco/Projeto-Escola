@@ -76,8 +76,15 @@ export class PresencesService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} presence`;
+  async findAllPresenceOfStudent(id: number): Promise<Presence[]> {
+    try {
+      const presences = await this.presenceRepository.find({
+        where: { student_id: id },
+      });
+      return presences;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   update(id: number, updatePresenceDto: UpdatePresenceDto) {

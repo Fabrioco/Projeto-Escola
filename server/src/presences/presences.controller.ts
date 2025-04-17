@@ -19,7 +19,7 @@ export class PresencesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.presencesService.findOne(+id);
+    return this.presencesService.findAllPresenceOfStudent(+id);
   }
 
   @Patch(':id')
