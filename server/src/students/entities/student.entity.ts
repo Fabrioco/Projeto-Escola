@@ -17,7 +17,7 @@ export class Student {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: "student" })
   role: string;
 
   @ManyToOne(() => Class, classEntity => classEntity.students)
