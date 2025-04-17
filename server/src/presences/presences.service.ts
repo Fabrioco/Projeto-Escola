@@ -103,7 +103,18 @@ export class PresencesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} presence`;
+  async remove(id: number) {
+    try {
+      const result = await this.presenceRepository.delete(id);
+      if (result.affected === 0) {
+        throw new ConflictException("Presença não encontrada");
+      }
+      return "Presença removida com sucesso";
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(error);
+    }
   }
 }
