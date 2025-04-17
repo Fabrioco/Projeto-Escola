@@ -1,5 +1,6 @@
 import { Class } from "src/classes/entities/class.entity";
 import { Note } from "src/notes/entities/note.entity";
+import { Presence } from "src/presences/entities/presence.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -28,4 +29,7 @@ export class Student {
 
   @OneToMany(() => Note, note => note.students)
   notes: Note[];
+
+  @OneToMany(() => Presence, presence => presence.student)
+  presences: Presence[];
 }
