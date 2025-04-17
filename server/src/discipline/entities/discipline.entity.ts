@@ -1,5 +1,6 @@
 import { Attribution } from "src/attribution/entities/attribution.entity";
 import { Note } from "src/notes/entities/note.entity";
+import { Presence } from "src/presences/entities/presence.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -15,4 +16,7 @@ export class Discipline {
 
   @OneToMany(() => Note, note => note.disciplines)
   notes: Note[];
+
+  @OneToMany(() => Presence, presence => presence.discipline)
+  presences: Presence[];
 }
