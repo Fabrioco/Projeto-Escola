@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ConflictException } from "@nestjs/common";
 import { PresencesService } from "./presences.service";
 import { CreatePresenceDto } from "./dto/create-presence.dto";
 import { UpdatePresenceDto } from "./dto/update-presence.dto";
@@ -14,6 +14,9 @@ export class PresencesController {
 
   @Post()
   create(@Body() createPresenceDto: CreatePresenceDto) {
+    if (!createPresenceDto.student_id || !createPresenceDto.discipline_id || !createPresenceDto.teacher_id || !createPresenceDto.presence) {
+      throw new ConflictException("Todos os campos devem ser preenchidos");
+    }
     return this.presencesService.create(createPresenceDto);
   }
 
