@@ -67,8 +67,13 @@ export class PresencesService {
     }
   }
 
-  findAll() {
-    return `This action returns all presences`;
+  async findAll() {
+    try {
+      const presences = await this.presenceRepository.find();
+      return presences;
+    } catch (error) {
+      return error;
+    }
   }
 
   findOne(id: number) {
