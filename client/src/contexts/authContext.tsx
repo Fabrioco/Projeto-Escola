@@ -3,7 +3,12 @@
 import axios, { AxiosError } from "axios";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { AuthContextProviderProps, AuthContextType, SignInProps, UserProps } from "@/types/AuthContextType";
+import {
+  AuthContextProviderProps,
+  AuthContextType,
+  SignInProps,
+  UserProps,
+} from "@/types/AuthContextType";
 
 const AuthContext = React.createContext<AuthContextType | null>(null);
 
@@ -16,17 +21,17 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 
   const api = "http://localhost:5000";
 
-  const signIn = async ({ email, password, keepLogged, role }: SignInProps) => {
+  const signIn = async ({ email, password, role }: SignInProps) => {
     try {
       setLoading(true);
-      const res = await axios.post(`${api}/api/auth/${role}/login`, {
+      const res = await axios.post(`${api}/auth/login`, {
         email,
         password,
-        keepLogged,
+        role,
       });
-      console.log(res.data.token.token);
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.token.token);
+      console.log(res);
+      if (res.status === 201) {
+        localStorage.setItem("token", res.data.token);
         if (role === "student") {
           router.push("/student");
         } else if (role === "teacher") {
