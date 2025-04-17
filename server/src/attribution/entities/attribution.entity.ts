@@ -1,3 +1,4 @@
+import { Class } from "src/classes/entities/class.entity";
 import { Discipline } from "src/discipline/entities/discipline.entity";
 import { Schedule } from "src/schedules/entities/schedule.entity";
 import { Teacher } from "src/teachers/entities/teacher.entity";
@@ -25,4 +26,14 @@ export class Attribution {
   @ManyToOne(() => Discipline, discipline => discipline.attributions)
   @JoinColumn({ name: "discipline_id" })
   discipline: Discipline;
+
+  @Column()
+  discipline_id: number;
+
+  @ManyToOne(() => Class, classEntity => classEntity.attributions)
+  @JoinColumn({ name: "class_id" })
+  class: Class;
+
+  @Column()
+  class_id: number;
 }

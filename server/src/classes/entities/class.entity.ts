@@ -1,3 +1,4 @@
+import { Attribution } from "src/attribution/entities/attribution.entity";
 import { Student } from "src/students/entities/student.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -17,4 +18,7 @@ export class Class {
 
   @OneToMany(() => Student, student => student.class)
   students: Student[];
+
+  @OneToMany(() => Attribution, attribution => attribution.class)
+  attributions: Attribution[];
 }
