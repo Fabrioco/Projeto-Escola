@@ -87,8 +87,20 @@ export class PresencesService {
     }
   }
 
-  update(id: number, updatePresenceDto: UpdatePresenceDto) {
-    return `This action updates a #${id} presence`;
+  async update(id: number, updatePresenceDto: UpdatePresenceDto): Promise<string> {
+    try {
+      const findPresence = await this.presenceRepository.findOneBy({ id });
+      if (!findPresence) {
+        throw new ConflictException("Presença não encontrada");
+      }
+      await this.presenceRepository.update(id, updatePresenceDto);
+      return "Presença atualizada com sucesso";
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(error);
+    }
   }
 
   remove(id: number) {
